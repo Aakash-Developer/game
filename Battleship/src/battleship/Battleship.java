@@ -1,9 +1,13 @@
 package battleship;
 
 import gameengine.ComputerPlayer;
+import gameengine.Controller;
+import gameengine.ModelView;
 import gameui.MainWindow;
+import gameui.PlayerMap;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /*
@@ -22,13 +26,30 @@ public class Battleship extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        primaryStage.setTitle("Battleship Game: Player VS Computer");
         ComputerPlayer ai = new ComputerPlayer(gridCellNum);
-        MainWindow main = new MainWindow((IPlayer) ai);
-        Scene scene = new Scene(main.generateGameScene());
+        
+        //ModelView ctrl = new ModelView();
+        Controller ctrl = new Controller();
+        Scene scene = new Scene(ctrl.GetModelView().GetPlayerMap());
+                
+        primaryStage.setTitle("Battleship Game: Player VS Computer");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        
+        
+        
+        
+//        ComputerPlayer ai = new ComputerPlayer(gridCellNum);
+//        
+//        MainWindow main = new MainWindow((IPlayer) ai);
+//        
+//        Scene scene = new Scene(main.generateGameScene());
+//        
+//        primaryStage.setTitle("Battleship Game: Player VS Computer");
+//        primaryStage.setScene(scene);
+//        primaryStage.setResizable(false);
+//        primaryStage.show();
     }
     
 

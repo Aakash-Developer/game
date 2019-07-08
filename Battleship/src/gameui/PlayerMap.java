@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -44,7 +45,10 @@ public class PlayerMap implements IPlayerMap {
         _vbox.setMargin(_g2, new Insets(insets,insets,insets,insets)); 
       
         ObservableList list = _vbox.getChildren();
-        list.addAll(_g1,_g2);
+        
+        Button button = new Button("My Label");
+        
+        list.addAll(_g1,_g2, button);
 
         return _vbox;
     }
@@ -73,13 +77,10 @@ public class PlayerMap implements IPlayerMap {
     public VBox GetPlayerMap(){
         return _vbox;
     }
-    
-    
     @Override
     public GridPane GetShipMap() {
         return _g2;
     }
-
     @Override
     public GridPane GetAttackMap() {
         return _g1;

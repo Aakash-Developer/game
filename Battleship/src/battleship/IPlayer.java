@@ -10,6 +10,22 @@ import utils.Tuple;
  */
 public interface IPlayer {
     
+    /**
+    @return the coordinates for the next move
+    */ 
     public Tuple NextMove();
+    
+    /**
+    @informas the player its move hit a ship
+    */ 
+    public void Hit();
+    /**
+    @informs the player it completely destroyed the ship.
+    */ 
+    public void ShipWasDestroyed();
+    
+    /**
+    @return the number of ships
+    */ 
     public int GetNumberOfShips();
 }

@@ -49,7 +49,7 @@ public class ModelView {
         
     }
     
-    public void initializeShips(byte[][] matrix ){
+    public void initializeShipsPositionInMap(byte[][] matrix ){
      
         GridPane gp = _playerMap.GetShipMap();
         
@@ -62,7 +62,6 @@ public class ModelView {
             }
         }
     }
-    
     
     public Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
         
@@ -77,5 +76,4 @@ public class ModelView {
         }
         return result;
     }
-
 }

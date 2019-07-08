@@ -26,9 +26,6 @@ public class Battleship extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        ComputerPlayer ai = new ComputerPlayer(gridCellNum);
-        
-        //ModelView ctrl = new ModelView();
         Controller ctrl = new Controller();
         Scene scene = new Scene(ctrl.GetModelView().GetPlayerMap());
                 

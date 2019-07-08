@@ -46,7 +46,8 @@ public class PlayerMap implements IPlayerMap {
       
         ObservableList list = _vbox.getChildren();
         
-        Button button = new Button("My Label");
+        Button button = new Button("New Game");
+        //button.setOnAction(event->{});
         
         list.addAll(_g1,_g2, button);
 

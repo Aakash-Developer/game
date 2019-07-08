@@ -4,7 +4,7 @@ import static battleship.Constants.MAP_SIZE;
 import java.util.concurrent.ThreadLocalRandom;
 import utils.Tuple;
 
-public class DistributeShips {
+public class ShipsLocation {
     
     private enum Orientation{
         VERTICAL ,
@@ -23,12 +23,12 @@ public class DistributeShips {
     }
     
     
-    public DistributeShips(byte[][] matrix, int[] ships){
+    public ShipsLocation(byte[][] matrix, byte[] ships){
         _matrix = matrix;
         FillMapWithShips(_matrix, ships);
     }
     
-    private void FillMapWithShips(byte[][] matrix, int[] ships){
+    private void FillMapWithShips(byte[][] matrix, byte[] ships){
 
         for(int shipLenght : ships){
             

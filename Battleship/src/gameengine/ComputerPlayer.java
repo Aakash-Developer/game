@@ -36,7 +36,7 @@ public class ComputerPlayer implements IPlayer {
         SECOND_HIT,         // oritentation is known
     }
     
-    public ComputerPlayer( byte[][] matrix){
+    public ComputerPlayer(byte[][] matrix){
         
         _gridSize = matrix.length;
         _currentState = State.NO_SHIPS_FOUND_YET;  

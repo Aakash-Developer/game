@@ -25,7 +25,7 @@ public class Battleship extends Application {
         primaryStage.setTitle("Battleship Game: Player VS Computer");
         ComputerPlayer ai = new ComputerPlayer(gridCellNum);
         MainWindow main = new MainWindow((IPlayer) ai);
-        Scene scene = new Scene(main.generateGameScene());
+        Scene scene = new Scene(main.generateGameScene(primaryStage));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

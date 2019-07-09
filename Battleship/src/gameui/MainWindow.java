@@ -27,7 +27,7 @@ import utils.Tuple;
  * @Pulkit Wadhwa
  */
 public class MainWindow {
-    
+    private Stage primaryStageObj;
     private BorderPane root;
     private boolean isPlayer2Turn = false;
     private GridMap computerMap, playerMap;
@@ -48,7 +48,8 @@ public class MainWindow {
         iniShipsToPlace = _computerPlayer.GetNumberOfShips();
     }
     
-    public Parent generateGameScene(){
+    public Parent generateGameScene(Stage StageScene){
+        primaryStageObj = StageScene;
         root = new BorderPane();
         root.setPrefSize(660, 680);
         root.setStyle("-fx-background-color: #d3ecff;");
@@ -189,8 +190,8 @@ public class MainWindow {
         cleanup();
         Stage newPrimaryStage = new Stage();
         newPrimaryStage.setTitle("Battleship Game: Player VS Computer");
-        
-        Scene scene = new Scene(generateGameScene());
+        primaryStageObj.close();
+        Scene scene = new Scene(generateGameScene(newPrimaryStage));
         newPrimaryStage.setScene(scene);
         newPrimaryStage.setResizable(false);
         newPrimaryStage.show();

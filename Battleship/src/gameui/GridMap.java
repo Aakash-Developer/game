@@ -12,16 +12,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * GridMap class creates the grid map for players.
+ * @author Team 4
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
+ */
 public class GridMap extends Parent {
     
     // default setting for placing ship is vertically!
     private final VBox mapRows = new VBox();
     // if GirdMap belonged enymy's side, this flag is true
     private boolean player2Flag = false; 
+
+    /**
+     *
+     */
     public int shipsNumOnMap = 5;
     private int gridCellNum = 0;
     
     // Constructor of GridMap
+
+    /**
+     *
+     * @param trueForPlayer2
+     * @param handler
+     * @param cellNum
+     */
     public GridMap(boolean trueForPlayer2, EventHandler<? super MouseEvent> handler,int cellNum) {
         this.player2Flag = trueForPlayer2;
         this.gridCellNum = cellNum;
@@ -173,12 +193,35 @@ public class GridMap extends Parent {
      * An inner GridBox class for a single hitting unit object
      */
     public class GridBox extends Rectangle {
-        public int pos_x, pos_y;
+
+        /**
+         *
+         */
+        public int pos_x,
+
+        /**
+         *
+         */
+        pos_y;
+
+        /**
+         *
+         */
         public Ship ship = null;
+
+        /**
+         *
+         */
         public boolean isHitted = false;
 
         private final GridMap gridMap;
         
+        /**
+         *
+         * @param mapObj
+         * @param input_x
+         * @param input_y
+         */
         public GridBox(GridMap mapObj, int input_x, int input_y) {
             super(20, 20);
             this.pos_x = input_x;

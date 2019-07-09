@@ -6,15 +6,16 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/*
- * @author Team 4
- * @Zbigniew Ivan Angelus
- * @Chen-Fang Chung
- * @Ayush Dave
- * @Aakash Ahuja
- * @Pulkit Wadhwa
- */
 
+/**
+ * Battleship class for starting a new game.
+ * @author Team 4
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
+ */
 public class Battleship extends Application {
    
     private final int gridCellNum = 10;
@@ -33,6 +34,7 @@ public class Battleship extends Application {
     
 
     /**
+     * Main method, starting point of this application.
      * @param args the command line arguments
      */
     public static void main(String[] args) {

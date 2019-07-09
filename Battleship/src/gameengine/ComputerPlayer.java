@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package gameengine;
 import battleship.IPlayer;
@@ -10,13 +5,14 @@ import gameui.Ship;
 import java.util.Random;
 import utils.Tuple;
 
-/*
+/**
+ * ComputerPlayer class implements IPlayer for computer player 
  * @author Team 4
- * @Zbigniew Ivan Angelus
- * @Chen-Fang Chung
- * @Ayush Dave
- * @Aakash Ahuja
- * @Pulkit Wadhwa
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
  */
 
 public class ComputerPlayer implements IPlayer {
@@ -25,11 +21,19 @@ public class ComputerPlayer implements IPlayer {
     private Random _random = new Random();
     private final int totalShips = 5;
     
+    /**
+     * Method for initiating a computer player.
+     * @param gridSize
+     */
     public ComputerPlayer(int gridSize){
         
         _gridSize = gridSize;
     }
     
+    /**
+     * Method of making the next move for computer player.
+     * @return
+     */
     @Override
     public Tuple NextMove() {
         
@@ -39,6 +43,10 @@ public class ComputerPlayer implements IPlayer {
         return new Tuple(_random.nextInt(_gridSize),_random.nextInt(_gridSize));
     }
     
+    /**
+     * Method of geting the number of ships for computer player.
+     * @return
+     */
     @Override
     public int GetNumberOfShips() {
         return totalShips;

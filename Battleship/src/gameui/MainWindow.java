@@ -18,13 +18,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.Tuple;
-/*
+
+/**
+ * MainWindow class creates the main UI window of the game.
  * @author Team 4
- * @Zbigniew Ivan Angelus
- * @Chen-Fang Chung
- * @Ayush Dave
- * @Aakash Ahuja
- * @Pulkit Wadhwa
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
  */
 public class MainWindow {
     private Stage primaryStageObj;
@@ -42,12 +44,21 @@ public class MainWindow {
     
     IPlayer _computerPlayer;
     
+    /**
+     * MainWindow class generates the main UI window of the game.
+     * @param computerPlayer
+     */
     public MainWindow(IPlayer computerPlayer){
      
         _computerPlayer = computerPlayer;
         iniShipsToPlace = _computerPlayer.GetNumberOfShips();
     }
     
+    /**
+     * "generateGameScene" method creates main scene in the main window
+     * @param StageScene
+     * @return
+     */
     public Parent generateGameScene(Stage StageScene){
         primaryStageObj = StageScene;
         root = new BorderPane();
@@ -197,9 +208,9 @@ public class MainWindow {
         newPrimaryStage.show();
     }
     
-        /**
-     * method for re-initializing the parameters
-     */
+     /**
+      * method for re-initializing the parameters
+      */
     private void cleanup() {
         isPlayer2Turn = false;
         iniShipsToPlace = _computerPlayer.GetNumberOfShips();

@@ -1,4 +1,6 @@
 Battleship/build.xml
 Battleship/dist/
 Battleship/build/
-Battleship/nbproject/
+Battleship/nbproject/*
+!Battleship/nbproject/project.properties
+!Battleship/nbproject/project.xml

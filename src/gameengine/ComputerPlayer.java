@@ -1,7 +1,6 @@
 
 package gameengine;
-import battleship.IPlayer;
-import gameui.Ship;
+import api.IPlayer;
 import java.util.Random;
 import utils.Tuple;
 
@@ -29,6 +28,10 @@ public class ComputerPlayer implements IPlayer {
         
         _gridSize = gridSize;
     }
+
+    ComputerPlayer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Method of making the next move for computer player.
@@ -44,7 +47,7 @@ public class ComputerPlayer implements IPlayer {
     }
     
     /**
-     * Method of geting the number of ships for computer player.
+     * Method of getting the number of ships for computer player.
      * @return
      */
     @Override
@@ -69,5 +72,15 @@ public class ComputerPlayer implements IPlayer {
 //        
 //        isPlayer2Turn = true;
 //    }
+
+    @Override
+    public int GetPlayerType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int[][] GetMatrix() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
  
 }

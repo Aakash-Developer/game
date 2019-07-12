@@ -1,5 +1,6 @@
 package battleship;
 
+import api.IPlayer;
 import gameengine.ComputerPlayer;
 import gameui.MainWindow;
 import javafx.application.Application;
@@ -16,9 +17,13 @@ import javafx.stage.Stage;
  * @author Aakash Ahuja
  * @author Pulkit Wadhwa
  */
+
+
+
+
 public class Battleship extends Application {
    
-    private final int gridCellNum = 10;
+    public static int gridCellNum = 10;
 
     @Override
     public void start(Stage primaryStage) throws Exception {

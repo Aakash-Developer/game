@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import utils.Validate;
 
 /**
  * GridMap class creates the grid map for players.
@@ -135,6 +136,8 @@ public class GridMap extends Parent {
     /**
      * method for validating the proper position to place a ship
      */
+    
+
     private boolean isValidPosition(int x, int y,Ship ship) {
         int length = ship.capacityType;
         // Check if vertically placing the ships is ok ?!

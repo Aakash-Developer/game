@@ -1,4 +1,4 @@
-package battleship;
+package api;
 import utils.Tuple;
 /**
  * IPlyer class for initializing the player.
@@ -22,4 +22,9 @@ public interface IPlayer {
      * @return
      */
     public int GetNumberOfShips();
+    
+    
+    public int GetPlayerType();
+    
+    public int[][] GetMatrix();
 }

@@ -12,18 +12,14 @@ import api.IController;
  *
  * @author zange
  */
-public class PlayerView extends PlayerViewAbstract{
+public class ComputerView extends PlayerViewAbstract {
 
-    public PlayerView(IController controller) {
+    public ComputerView(IController controller) {
         super(controller);
 
-    }
+    } 
     
-     public void SimulateUserEnterTheValuesAndClickedStart(){
-        
-        //example to ilustrate that the player finish positioning the ships
-        //and the view generates a matrix with the ships position. The user then
-        //clicks start to send this information to the controller.
+    public void SimulateComputerEnterTheValuesAndClickedStart(){
         
         this.player_map = new int[][]{ 
              {1,0,0,0,0,0,0,0,0,1,1,1},
@@ -42,5 +38,4 @@ public class PlayerView extends PlayerViewAbstract{
         
         this.OnButtonStartClicked();
     }
-     
 }

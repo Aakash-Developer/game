@@ -12,5 +12,7 @@ package api;
  */
 public interface IPlayerView {
     
+    boolean DetermineIfAllShipsAreInPlace();
+    int[][] GetPlayerMap();
 
 }

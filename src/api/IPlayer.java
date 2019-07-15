@@ -1,5 +1,7 @@
 package api;
+
 import utils.Tuple;
+
 /**
  * IPlyer class for initializing the player.
  * @author Team 4
@@ -11,20 +13,15 @@ import utils.Tuple;
  */
 public interface IPlayer {
     
-    /**
+    IPlayerModel GetModel();
+    IPlayerView GetView();
+
+     /**
      * Method for fetching the coordination of next move
      * @return Tuple information about x-y position
      */
     public Tuple NextMove();
-
-    /**
-     * Method for fetching the coordination of next move
-     * @return
-     */
+    
     public int GetNumberOfShips();
-    
-    
-    public int GetPlayerType();
-    
-    public int[][] GetMatrix();
+                    
 }

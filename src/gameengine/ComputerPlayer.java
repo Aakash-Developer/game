@@ -1,7 +1,9 @@
-
 package gameengine;
-import api.IPlayer;
-import java.util.Random;
+import api.Constant;
+import api.IPlayerModel;
+import api.IPlayerView;
+import gameui.PlayerView;
+import java.util.concurrent.ThreadLocalRandom;
 import utils.Tuple;
 
 /**
@@ -14,24 +16,40 @@ import utils.Tuple;
  * @author Pulkit Wadhwa
  */
 
-public class ComputerPlayer implements IPlayer {
+public class ComputerPlayer extends Player {
 
-    private final int _gridSize;
-    private Random _random = new Random();
-    private final int totalShips = 5;
+    public ComputerPlayer(IPlayerModel model, IPlayerView view) {
+        super(model, view);
+    }
     
-    /**
-     * Method for initiating a computer player.
-     * @param gridSize
-     */
-    public ComputerPlayer(int gridSize){
+    /*
+    public void Initialize(){
         
-        _gridSize = gridSize;
+        PositionShipsOnTheMap();
+        PlayerView pv = (PlayerView)this.GetView();
+        pv.OnButtonStartClicked();
     }
-
-    ComputerPlayer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+          
+    private void PositionShipsOnTheMap(){
+         
+         int[][] example = new int[][]{ 
+             {1,0,0,0,0,0,0,0,0,1,1,1},
+             {1,0,0,0,0,0,0,0,0,0,0,0},
+             {1,0,0,0,0,0,0,0,0,0,0,0},
+             {1,0,0,0,0,0,0,0,0,0,0,0},
+             {1,0,0,0,0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0,0,0,1,1},
+             {0,0,0,0,0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0,0,0,0,0},
+             {1,1,1,1,0,0,0,0,0,1,1,1},
+         };
+         
+         this.model.SetPlayerMap(example);
+     }
+     */
     
     /**
      * Method of making the next move for computer player.
@@ -40,10 +58,10 @@ public class ComputerPlayer implements IPlayer {
     @Override
     public Tuple NextMove() {
         
-        int a = _random.nextInt(_gridSize);
-        int b = _random.nextInt(_gridSize);
+        int a = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
+        int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
         
-        return new Tuple(_random.nextInt(_gridSize),_random.nextInt(_gridSize));
+        return new Tuple(a, b);
     }
     
     /**
@@ -52,35 +70,9 @@ public class ComputerPlayer implements IPlayer {
      */
     @Override
     public int GetNumberOfShips() {
-        return totalShips;
+        return Constant.totalShips;
     }
     
-//     /**
-//     * method for initializing the computer-player
-//     */
-//    private void iniComputerSide() {
-//        // computer's turn of placing ships
-//        int type = totalShips;
-//        while (type > 0) {
-//            int pos_x = _random.nextInt(_gridSize);
-//            int pos_y = _random.nextInt(_gridSize);
-//            
-//            if (computerMap.placingBattleShipOn_X_Y(new Ship(hitCapacityType[type-1], Math.random() < 0.5), pos_x, pos_y)) {
-//                type--;
-//            }
-//        }
-//        
-//        isPlayer2Turn = true;
-//    }
+    
 
-    @Override
-    public int GetPlayerType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int[][] GetMatrix() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
- 
 }

@@ -12,6 +12,18 @@ package api;
  */
 public interface IBinding {
     
-    public void OnMouseLeftClickedInEnemyGrid();
+    /**
+     * 
+     * 
+     */
+    void OnMouseLeftClickedInEnemyGrid();
+    
+    /**
+     * The VIEW calls this function when the user clicks the START button
+     * The CONTROLLER receives the notification to prepare the model
+     * @param viewObject 
+     * @throws java.lang.Exception 
+     */
+    void OnPlayerClicksStart(IPlayerView viewObject);  
     
 }

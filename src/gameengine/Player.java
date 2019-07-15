@@ -7,14 +7,27 @@
 package gameengine;
 
 import api.IPlayer;
+import api.IPlayerModel;
+import api.IPlayerView;
 import utils.Tuple;
 
 /**
- *
- * Compared to a computer, the human player needs the map to be created first
- * so it can position the ships by himself
+ * This class is "only" a helper of the controller 
+ * to manage the MODEL and VIEW of a player in a single class
+ * 
+ * This class is not a MODEL nor a VIEW but it contains both.
+ * 
+ * @author zange
  */
-public class HumanPlayer implements IPlayer {
+public class Player implements IPlayer{
+        
+    public IPlayerModel model;
+    public IPlayerView view;
+        
+    public Player(IPlayerModel model, IPlayerView view){
+        this.model = model;
+        this.view = view;
+    }
 
     @Override
     public Tuple NextMove() {
@@ -27,13 +40,12 @@ public class HumanPlayer implements IPlayer {
     }
 
     @Override
-    public int GetPlayerType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IPlayerModel GetModel() {
+        return this.model;
     }
 
     @Override
-    public int[][] GetMatrix() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public IPlayerView GetView() {
+        return this.view;
     }
-    
 }

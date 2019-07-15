@@ -12,10 +12,44 @@ package api;
  */
 public class Constant {
     
+    //LEGACY
     public static int gridCellNum = 10;
+    public static int totalShips = 5;
+    
+    //NEW ONES
+    public static int GRID_SIZE = 12;
+    public static int[] SHIPS_SIZE = new int[]{2,3,3,4,5};
+    
+    //Messages
+    
+    public static final String SHIPS_MUST_BE_IN_ALL_IN_PLACE = "Ships must be place in the map prior to start a game";
      
     public enum PlayerType{
         HUMAN,
         AI
     }
+    
+    public enum State{
+        Invalid,
+        A,
+        B,
+        C,
+        D,
+        RANDOM_SEARCH,
+        CLOCKWISE,
+        VERTICAL,
+        HORIZONTAL,
+    }
+    
+    public enum Action{
+        INIT,
+        NEXT,
+        HIT
+    }
+    
+    public enum GameType{
+        ONE_PLAYER,
+        TWO_PLAYER
+    }
+    
 }

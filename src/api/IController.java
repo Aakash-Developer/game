@@ -12,5 +12,5 @@ package api;
  */
 public interface IController extends IBinding {
     
-    boolean IsMainController();
+        int GetGridSize();
 }

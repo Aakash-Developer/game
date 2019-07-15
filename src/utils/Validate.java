@@ -26,4 +26,10 @@ public class Validate {
         // checking if a coordinate is valid?!
         return x >= 0 && x < Constant.gridCellNum && y >= 0 && y < Constant.gridCellNum;
     }
+    
+    public static boolean IsCoordinateValid(Tuple value){
+        
+        return (int)value.t1 >= 0 && (int)value.t1 < Constant.GRID_SIZE &&
+               (int)value.t2 >= 0 && (int)value.t2 < Constant.GRID_SIZE;        
+    }
 }

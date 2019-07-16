@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Battleship class for starting a new game.
+ * Battleship class for starting a new game (program starting point).
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung
@@ -17,9 +17,6 @@ import javafx.stage.Stage;
  * @author Aakash Ahuja
  * @author Pulkit Wadhwa
  */
-
-
-
 
 public class Battleship extends Application {
    

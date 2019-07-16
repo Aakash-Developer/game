@@ -7,7 +7,7 @@
 package api;
 
 /**
- *
+ * Major parameters
  * @author zange
  */
 public final class Constant {

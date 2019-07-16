@@ -12,7 +12,7 @@ import gameui.PlayerView;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * "Controller" module
+ * "Controller" module.
  * @author zange
  */
 public class Controller implements IController

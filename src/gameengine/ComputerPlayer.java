@@ -10,7 +10,7 @@ import utils.Tuple;
 
 /**
  * ComputerPlayer class implements IPlayer for computer player
- * Part of "Controller" module.
+ * One of the "Controller" module.
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung

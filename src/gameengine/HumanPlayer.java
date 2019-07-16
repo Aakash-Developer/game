@@ -10,7 +10,7 @@ import javafx.scene.input.MouseButton;
 import utils.Tuple;
 
 /**
- * Part of "Controller" module.
+ * one of the "Controller" module.
  * Compared to a computer, the human player needs the map to be created first
  * so it can position the ships by himself
  */

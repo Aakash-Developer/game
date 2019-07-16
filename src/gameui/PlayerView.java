@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * "View" module.
+ * Major "View" module.
  * @author zange
  */
 public class PlayerView implements IPlayerView, IBinding {

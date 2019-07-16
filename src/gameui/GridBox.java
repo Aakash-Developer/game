@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
     /**
-     * Part of "Model" module.
+     * One of the "Model" module.
      * An inner GridBox class for a single hitting unit object
      */
     public class GridBox extends Rectangle {

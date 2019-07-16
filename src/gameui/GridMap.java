@@ -15,7 +15,7 @@ import utils.Validate;
 
 /**
  * GridMap class creates the grid map for players.
- * Part of "View" module.
+ * One of the "View" module.
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung

@@ -2,7 +2,7 @@ package battleship;
 
 import api.IPlayer;
 import gameengine.ComputerPlayer;
-import gameui.MainWindow;
+import gameengine.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -29,9 +29,11 @@ public class Battleship extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         primaryStage.setTitle("Battleship Game: Player VS Computer");
-        ComputerPlayer ai = new ComputerPlayer(gridCellNum);
-        MainWindow main = new MainWindow((IPlayer) ai);
-        Scene scene = new Scene(main.generateGameScene(primaryStage));
+        //ComputerPlayer ai = new ComputerPlayer(gridCellNum);
+        //MainWindow main = new MainWindow((IPlayer) ai);
+        //Scene scene = new Scene(main.generateGameScene(primaryStage));
+        Controller mainController = new Controller();
+        Scene scene = new Scene(mainController.mainWindowView.generateGameScene(primaryStage));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

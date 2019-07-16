@@ -11,6 +11,5 @@ package api;
  * @author zange
  */
 public interface IController extends IBinding {
-    
     boolean IsMainController();
 }

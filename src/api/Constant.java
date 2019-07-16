@@ -10,10 +10,11 @@ package api;
  *
  * @author zange
  */
-public class Constant {
+public final class Constant {
     
     public static int gridCellNum = 10;
-     
+    public static int shipNum = 5;
+    public static final int[] hitCapacityType = {2,3,3,4,5}; 
     public enum PlayerType{
         HUMAN,
         AI

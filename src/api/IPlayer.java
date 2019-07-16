@@ -1,4 +1,5 @@
 package api;
+import gameui.GridMap;
 import utils.Tuple;
 /**
  * IPlyer class for initializing the player.

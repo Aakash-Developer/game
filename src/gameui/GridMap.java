@@ -15,6 +15,7 @@ import utils.Validate;
 
 /**
  * GridMap class creates the grid map for players.
+ * Part of "View" module.
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung
@@ -32,8 +33,9 @@ public class GridMap extends Parent {
     /**
      *
      */
-    public int shipsNumOnMap = 5;
     private int gridCellNum = 0;
+    public int shipsNumOnMap = 5;
+    
     
     // Constructor of GridMap
 
@@ -49,7 +51,7 @@ public class GridMap extends Parent {
         for (int pos_y = 0; pos_y < gridCellNum; pos_y++) {
             HBox mapRowElement = new HBox();
             for (int pos_x = 0; pos_x < gridCellNum; pos_x++) {
-                GridBox gridBoxObj = new GridBox(this,pos_x, pos_y);
+                GridBox gridBoxObj = new GridBox(this,pos_x, pos_y,this.player2Flag);
                 gridBoxObj.setOnMouseClicked(handler);
                 mapRowElement.getChildren().add(gridBoxObj);
             }
@@ -192,77 +194,5 @@ public class GridMap extends Parent {
         return x >= 0 && x < gridCellNum && y >= 0 && y < gridCellNum;
     }
      
-    /**
-     * An inner GridBox class for a single hitting unit object
-     */
-    public class GridBox extends Rectangle {
-
-        /**
-         *
-         */
-        public int pos_x,
-
-        /**
-         *
-         */
-        pos_y;
-
-        /**
-         *
-         */
-        public Ship ship = null;
-
-        /**
-         *
-         */
-        public boolean isHitted = false;
-
-        private final GridMap gridMap;
-        
-        /**
-         *
-         * @param mapObj
-         * @param input_x
-         * @param input_y
-         */
-        public GridBox(GridMap mapObj, int input_x, int input_y) {
-            super(20, 20);
-            this.pos_x = input_x;
-            this.pos_y = input_y;
-            this.gridMap = mapObj;
-            if (!player2Flag) {
-                // initially set the box to blue color
-                setFill(Color.CADETBLUE);
-                // if a box was selected as hitted, set it to black color.
-                setStroke(Color.BLACK);
-            }else{
-                setFill(Color.BLUE);
-                setStroke(Color.BLACK);
-            }
-        }
-        
-        /**
-        * method for controlling the behavior of a GridBox
-        * Hit a single box. if the box belongs to a ship, turn red, otherwise turn black.
-         * @return 
-        */ 
-        public boolean hitGridBox() {
-            isHitted = true;
-            // if a box was selected as hitted, set it to black color.
-            setFill(Color.BLACK);
-            // if a box belongs to a ship and was hitted, set it to red color.
-            if (ship != null) {
-                ship.gotHit();
-                setFill(Color.RED);
-                // check if the ship still has the capacity to take the hitting.
-                if (!ship.isAlive()) {
-                    // if the ship is sinked, reduce the number of ship on the map.
-                    gridMap.shipsNumOnMap--;
-                }
-                return true;
-            }
-
-            return false;
-        }
-    }
+    
 }

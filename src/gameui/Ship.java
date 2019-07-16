@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 
 
 /**
- *
+ * Part of "Model" module.
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung

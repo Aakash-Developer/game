@@ -71,7 +71,7 @@ public class ComputerPlayer implements IPlayer{
         //int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
         int a = _random.nextInt(_gridSize);
         int b = _random.nextInt(_gridSize);
-        System.out.println("a,b = "+a+" , "+b);
+
         return new Tuple(a, b);
     }
     
@@ -101,7 +101,7 @@ public class ComputerPlayer implements IPlayer{
             //root.setLeft(new Text("\n\n\n\n\n       Nice...You WIN the Battle!! "));
             mainController.mainWindowView.displayMessage(2);
         }
-        System.out.println("computerTurnFlag: "+mainController.computerTurn);
+        
         if (mainController.computerTurn){
             computerMove(); 
         }

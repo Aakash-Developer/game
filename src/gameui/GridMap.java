@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import utils.Validate;
+import model.Ship;
 
 /**
  * GridMap class creates the grid map for players.

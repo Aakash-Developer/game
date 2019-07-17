@@ -8,7 +8,7 @@ package utils;
 
 import api.Constant;
 import gameui.GridMap;
-import gameui.Ship;
+import model.Ship;
 import javafx.geometry.Point2D;
 
 /**

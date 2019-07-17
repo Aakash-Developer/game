@@ -12,7 +12,7 @@ import api.IPlayerModel;
 import api.IPlayerView;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
-import gameui.Ship;
+import model.Ship;
 import javafx.scene.input.MouseButton;
 import utils.Tuple;
 

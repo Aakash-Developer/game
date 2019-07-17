@@ -8,7 +8,7 @@ import api.IPlayerModel;
 import api.IPlayerView;
 import gameui.GridMap;
 import gameui.PlayerView;
-import gameui.Ship;
+import model.Ship;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.input.MouseButton;

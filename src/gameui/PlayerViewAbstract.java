@@ -10,6 +10,7 @@ import api.Constant;
 import api.IBinding;
 import api.IController;
 import api.IPlayerView;
+import gameengine.Controller;
 
 /**
  *
@@ -22,7 +23,7 @@ public abstract class  PlayerViewAbstract implements IPlayerView, IBinding {
     int[][] player_map;
     int[][] enemy_map;
     
-    public PlayerViewAbstract(IController controller){
+    public PlayerViewAbstract(Controller controller){
         
         this.controller = controller;
         

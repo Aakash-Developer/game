@@ -13,8 +13,8 @@ import utils.Tuple;
  */
 public interface IPlayer {
     
-    IPlayerModel GetModel();
-    IPlayerView GetView();
+    //IPlayerModel GetModel();
+    //IPlayerView GetView();
 
      /**
      * Method for fetching the coordination of next move

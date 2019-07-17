@@ -4,7 +4,6 @@ import api.IController;
 import api.IPlayer;
 import gameengine.ComputerPlayer;
 import gameengine.Controller;
-import gameui.MainWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +32,7 @@ public class Battleship extends Application {
         primaryStage.setTitle("Battleship Game: Player VS Computer");
         //ComputerPlayer ai = new ComputerPlayer(gridCellNum);
         
-        IController controller = new Controller();
+        //IController controller = new Controller();
         
         
 //        MainWindow main = new MainWindow((IPlayer) ai);
@@ -45,7 +44,11 @@ public class Battleship extends Application {
         
         
         //entry point creates a new controller for every new game
-        
+        Controller mainController = new Controller();
+        Scene scene = new Scene(mainController.mainWindowView.generateGameScene(primaryStage));
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
     
 

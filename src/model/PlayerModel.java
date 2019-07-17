@@ -7,7 +7,7 @@
 package model;
 
 import api.Constant;
-import api.IController;
+import gameengine.Controller;
 import api.IPlayerModel;
 import utils.Tuple;
 import utils.Validate;
@@ -18,11 +18,11 @@ import utils.Validate;
  */
 public class PlayerModel implements IPlayerModel {
     
-    IController controller;
+    Controller controller;
     int[][] player_map;
     int[][] shooting_map;
 
-    public PlayerModel(IController controller){
+    public PlayerModel(Controller controller){
         
         this.controller = controller;
         player_map = new int[Constant.GRID_SIZE][Constant.GRID_SIZE];
@@ -30,7 +30,7 @@ public class PlayerModel implements IPlayerModel {
     }
 
     @Override
-    public IController GetController(){
+    public Controller GetController(){
         return this.controller;
     }
     

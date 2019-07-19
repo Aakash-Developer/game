@@ -8,6 +8,9 @@ import gameui.GridMap.GridBox;
 import gameui.PlayerView;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import static jdk.nashorn.internal.objects.NativeMath.round;
 import utils.Tuple;
 
 /**
@@ -26,7 +29,8 @@ public class ComputerPlayer implements IPlayer{
     private Random _random = new Random();
     //private final int totalShips = Constant.totalShips;
     private Controller mainController;
-    
+    public long startTimeStamp;
+    public long endTimeStamp;
     //public ComputerPlayer(IPlayerModel model, IPlayerView view) {
     //    super(model, view);
     //}
@@ -85,26 +89,60 @@ public class ComputerPlayer implements IPlayer{
     }
     
     // Initialize the grid map for computer side
-    public GridMap computerMapView = new GridMap(true, event -> {
+    public GridMap computerMapView = new GridMap(true, (MouseEvent event) -> {
+        
         if (!mainController.isPlayer2Turn){
             return;
         }
 
         GridBox selectedGridBox = (GridBox) event.getSource();
-        if (selectedGridBox.isHitted){
-            return;
+        endTimeStamp = System.currentTimeMillis();
+        
+        double timeDiff = (endTimeStamp - startTimeStamp)/1000;
+        String timeSpan = timeDiff + " seconds  ";
+        System.out.println("time diff: "+ timeSpan);
+        
+        if(this.computerMapView.finishIni && (timeDiff < 1000)){
+            mainController.mainWindowView.totalTime = mainController.mainWindowView.totalTime + timeDiff;
+            mainController.mainWindowView.root.setRight(new Text("\n\n\n  "+timeSpan+"\n\n  for this step! "));
         }
+        /*if (selectedGridBox.isHitted){
+            return;
+        }*/
+        mainController.mainWindowView.salvoCheckBox = mainController.mainWindowView.checkBox1.isSelected();
+            if(mainController.mainWindowView.salvoCheckBox){
+                if(selectedGridBox.hitGridBox()){
+                    this.computerMapView.salvoMoveCheck[this.computerMapView.moveCounter] = true;
+                    mainController.computerTurn = !checkNextMove(this.computerMapView.salvoMoveCheck);
+                }
+                 this.computerMapView.moveCounter++;         
+                 
+                 if(this.computerMapView.moveCounter >4){
+                     mainController.computerTurn = true;
+                     this.computerMapView.moveCounter = 0;
+                     computerMove();
+                 }
+            }else{
+                if (selectedGridBox.isHitted){
+                    return;
+                }
+                mainController.computerTurn = !selectedGridBox.hitGridBox();
+                if (mainController.computerTurn){
+                    this.computerMapView.moveCounter = 0;
+                    computerMove(); 
+                }
+            }
 
-        mainController.computerTurn = !selectedGridBox.hitGridBox();
+        //mainController.computerTurn = !selectedGridBox.hitGridBox();
         // If there is no ship left on the computer's map, then player wins!
         if (this.computerMapView.shipsNumOnMap == 0) {
             //root.setLeft(new Text("\n\n\n\n\n       Nice...You WIN the Battle!! "));
             mainController.mainWindowView.displayMessage(2);
         }
         
-        if (mainController.computerTurn){
+        /*if (mainController.computerTurn){
             computerMove(); 
-        }
+        }*/
     },_gridSize);
     
     /**
@@ -134,12 +172,35 @@ public class ComputerPlayer implements IPlayer{
             if (selectedGridBox.isHitted)
                 continue;
             
-            mainController.computerTurn = selectedGridBox.hitGridBox();
+            if(mainController.mainWindowView.salvoCheckBox){
+                mainController.playerMapView.salvoMoveCheck[mainController.playerMapView.moveCounter] = selectedGridBox.hitGridBox();
+                mainController.playerMapView.moveCounter++;
+                
+                if(mainController.playerMapView.moveCounter >4){
+                    mainController.playerMapView.moveCounter = 0;
+                    mainController.computerTurn = false;
+                }
+            }else{
+                mainController.computerTurn = selectedGridBox.hitGridBox();
+            }
+            
+            //mainController.computerTurn = selectedGridBox.hitGridBox();
             
             // If there is no ship left on the player's map, then computer wins!
             if (mainController.playerMapView.shipsNumOnMap == 0) {
                 //root.setLeft(new Text("\n\n\n\n\n      Sorry...You LOST the Battle!!"));
+                mainController.mainWindowView.displayMessage(4);
             }
         }
+        startTimeStamp = System.currentTimeMillis();
+    }
+    
+    private boolean checkNextMove(boolean[] inputArr){
+        for(int i=0;i<inputArr.length;i++){
+            if(inputArr[i]){
+                return inputArr[i];
+            }
+        }
+        return false;
     }
 }

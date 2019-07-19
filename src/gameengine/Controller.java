@@ -31,7 +31,7 @@ public class Controller implements IController
     public boolean isPlayer2Turn = false;
     public boolean computerTurn = false;
     public final ComputerPlayer ai;
-    private final Player userPlayer;
+    public final Player userPlayer;
                 
     public final int grid_size = Constant.GRID_SIZE;
     /*

@@ -28,12 +28,14 @@ public class Player implements IPlayer{
         
     //public IPlayerModel model;
     //public IPlayerView view;
-    public final int[] hitCapacityType = Constant.SHIPS_SIZE;
+    
     
     private int gridSize=Constant.gridCellNum;
-    private final int totalShips = Constant.totalShips;   
-    private int iniShipsToPlace = totalShips;
+    private final int totalShips = Constant.totalShips;       
     private Controller mainController;
+    
+    public final int[] hitCapacityType = Constant.SHIPS_SIZE;
+    public int iniShipsToPlace = totalShips;
 
     // Initialize the grid map for player side
     public GridMap playerMapView = new GridMap(false, event -> {
@@ -50,6 +52,7 @@ public class Player implements IPlayer{
                         + "             Player's move             "));
                 */
                 mainController.mainWindowView.displayMessage(3);
+                
                 iniComputerSide();
             }
         }
@@ -88,6 +91,7 @@ public class Player implements IPlayer{
     }
     */
     public void iniComputerSide() {
+        
         // computer's turn of placing ships
         int type = mainController.ai.GetNumberOfShips();
 
@@ -103,6 +107,7 @@ public class Player implements IPlayer{
         }
 
         mainController.isPlayer2Turn = true;
+        mainController.computerMapView.finishIni = true;
     }
     
 }

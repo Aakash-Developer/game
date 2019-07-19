@@ -29,13 +29,14 @@ public class GridMap extends Parent {
     private final VBox mapRows = new VBox();
     // if GirdMap belonged enymy's side, this flag is true
     private boolean player2Flag = false; 
-
+    private int gridCellNum = 0;
     /**
      *
      */
-    public int shipsNumOnMap = 5;
-    private int gridCellNum = 0;
-    
+    public int shipsNumOnMap = 5;    
+    public boolean[] salvoMoveCheck = {false,false,false,false,false};
+    public int moveCounter = 0;
+    public boolean finishIni = false;
     // Constructor of GridMap
 
     /**

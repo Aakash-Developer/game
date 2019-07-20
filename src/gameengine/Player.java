@@ -44,7 +44,7 @@ public class Player implements IPlayer{
         }
         GridBox selectedGridBox = (GridBox) event.getSource();
 
-        if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
+        if (this.playerMapView.TryToPlaceShipOnMap(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
                 event.getButton() == MouseButton.PRIMARY), 
                 selectedGridBox.pos_x, selectedGridBox.pos_y)) {
             
@@ -97,18 +97,16 @@ public class Player implements IPlayer{
         
         while (numOfShips > 0) {
 
-            Tuple coordinates = mainController.ai.NextMove();
-            
-            int pos_x = (int) coordinates.t1;
-            int pos_y = (int) coordinates.t2;
-
-            
+            Tuple possibleCoordinate = mainController.ai.NextMove();
+                       
             Ship ship = new Ship(ShipsSizeOrderedList[numOfShips-1] , Math.random() < 0.5 );
             
-            if (mainController.computerMapView.placingBattleShipOn_X_Y(ship, pos_x, pos_y)) {
+            if (mainController.computerMapView.TryToPlaceShipOnModel(ship, possibleCoordinate.t1, possibleCoordinate.t2)) {
                 numOfShips--;
             }
         }
+        
+        mainController.computerMapView.ApplyModelToGridMap();
         
         mainController.isPlayer2Turn = true;
         mainController.computerMapView.finishIni = true;

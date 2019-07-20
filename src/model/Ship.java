@@ -20,12 +20,12 @@ public class Ship extends Parent {
      *  This parameter indicates the direction of a placed ship.
      *  True for vertical placement, false for horizontal placement.
      */
-    public boolean verticalPlacement = true;
+    public boolean isVertical = true;
 
     /**
      * This parameter indicates the capacity of getting hit for a placed ship.
      */
-    public final int startingLength;    
+    public final int length;    
     private int remainingLength;
     
     /**
@@ -35,8 +35,8 @@ public class Ship extends Parent {
      */
     public Ship(int length, boolean isVertical) {
         
-        this.startingLength      = length;
-        this.verticalPlacement   = isVertical;
+        this.length      = length;
+        this.isVertical   = isVertical;
         remainingLength          = length;
     }
 

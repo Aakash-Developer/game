@@ -195,7 +195,7 @@ public class ComputerPlayer implements IPlayer{
                 
                 System.out.println("Ship has been hit");
                 
-                if(selectedGridBox.ship.isAlive()){
+                if(selectedGridBox.shipInstance.isAlive()){
                     System.out.println("Ship is alive");
                 }
                 else{

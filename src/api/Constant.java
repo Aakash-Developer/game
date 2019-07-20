@@ -20,6 +20,16 @@ public class Constant {
     public static int GRID_SIZE = 12;
     public static int[] SHIPS_SIZE = new int[]{2,3,3,4,5};
     
+    public enum Space{
+        IsEmpty,
+        IsShip
+    }
+    
+    public enum Uncover{
+        Yes,
+        No,
+    }
+    
     public enum ShootingMapStatus{
         
         HIT,

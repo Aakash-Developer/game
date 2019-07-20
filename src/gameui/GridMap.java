@@ -25,41 +25,44 @@ import model.Ship;
  */
 public class GridMap extends Parent {
     
-    // default setting for placing ship is vertically!
-    private final VBox mapRows = new VBox();
-    // if GirdMap belonged enymy's side, this flag is true
-    private boolean player2Flag = false; 
-    private int gridCellNum = 0;
-    /**
-     *
-     */
-    public int shipsNumOnMap = 5;    
+    private final VBox gridMatrix      = new VBox(); // default setting for placing ship is vertically!
+    private boolean isEnemyMap      = false;  // if GirdMap belonged enymy's side, this flag is true
+    private int gridLength            = 0;
+
+    public int shipsNumOnMap        = 5;    
     public boolean[] salvoMoveCheck = {false,false,false,false,false};
-    public int moveCounter = 0;
-    public boolean finishIni = false;
+    public int moveCounter          = 0;
+    public boolean finishIni        = false;
+    
     // Constructor of GridMap
 
     /**
      *
-     * @param trueForPlayer2
+     * @param isEnemyMap
      * @param handler
-     * @param cellNum
+     * @param length
      */
-    public GridMap(boolean trueForPlayer2, EventHandler<? super MouseEvent> handler,int cellNum) {
-        this.player2Flag = trueForPlayer2;
-        this.gridCellNum = cellNum;
-        for (int pos_y = 0; pos_y < gridCellNum; pos_y++) {
-            HBox mapRowElement = new HBox();
-            for (int pos_x = 0; pos_x < gridCellNum; pos_x++) {
-                GridBox gridBoxObj = new GridBox(this,pos_x, pos_y);
+    public GridMap(boolean isEnemyMap, 
+                   EventHandler<? super MouseEvent> handler, 
+                   int length) 
+    {
+        this.isEnemyMap     = isEnemyMap;
+        this.gridLength     = length;
+ 
+        for (int pos_y = 0; pos_y < gridLength; pos_y++) {
+            
+            HBox row = new HBox();
+            
+            for (int pos_x = 0; pos_x < gridLength; pos_x++) {
+                
+                GridBox gridBoxObj = new GridBox(this, pos_x, pos_y);
                 gridBoxObj.setOnMouseClicked(handler);
-                mapRowElement.getChildren().add(gridBoxObj);
+                row.getChildren().add(gridBoxObj);
             }
-
-            mapRows.getChildren().add(mapRowElement);
+            
+            gridMatrix.getChildren().add(row);
         }
-
-        getChildren().add(mapRows);
+        getChildren().add(gridMatrix);
     }
  
     /**
@@ -70,14 +73,16 @@ public class GridMap extends Parent {
      * @return 
      */
     public boolean placingBattleShipOn_X_Y(Ship ship, int pos_x, int pos_y) {
-        if (isValidPosition(pos_x, pos_y,ship)) {
-            int length = ship.capacityType;
+        
+        if (doesTheShipFitsInAtThisPosition(pos_x, pos_y, ship)) {
+            
+            int length = ship.startingLength;
 
             if (ship.verticalPlacement) { // Vertically place the ship for the player
                 for (int i = pos_y; i < pos_y + length; i++) {
                     GridBox grigBoxesOfOneShip = getGridBoxByCoordinate(pos_x, i);
                     grigBoxesOfOneShip.ship = ship;
-                    if (!player2Flag) {
+                    if (!isEnemyMap) {
                         grigBoxesOfOneShip.setFill(Color.WHITE);
                         grigBoxesOfOneShip.setStroke(Color.BLUE);
                     }
@@ -88,7 +93,7 @@ public class GridMap extends Parent {
                 for (int i = pos_x; i < (pos_x + length); i++) {
                     GridBox grigBoxesOfOneShip = getGridBoxByCoordinate(i, pos_y);
                     grigBoxesOfOneShip.ship = ship;
-                    if (!player2Flag) {
+                    if (!isEnemyMap) {
                         grigBoxesOfOneShip.setFill(Color.WHITE);
                         grigBoxesOfOneShip.setStroke(Color.BLUE);
                     }
@@ -108,7 +113,7 @@ public class GridMap extends Parent {
      * @return 
      */
     public GridBox getGridBoxByCoordinate(int pos_x, int pos_y) {
-        return (GridBox)((HBox)mapRows.getChildren().get(pos_y)).getChildren().get(pos_x);
+        return (GridBox)((HBox)gridMatrix.getChildren().get(pos_y)).getChildren().get(pos_x);
     }
     
     /**
@@ -140,8 +145,8 @@ public class GridMap extends Parent {
      */
     
 
-    private boolean isValidPosition(int x, int y,Ship ship) {
-        int length = ship.capacityType;
+    private boolean doesTheShipFitsInAtThisPosition(int x, int y, Ship ship) {
+        int length = ship.startingLength;
         // Check if vertically placing the ships is ok ?!
         if (ship.verticalPlacement) {
             for (int i = y; i < y + length; i++) {
@@ -191,53 +196,39 @@ public class GridMap extends Parent {
 
     private boolean isValidPosition(double x, double y) {
         // checking if a coordinate is valid?!
-        return x >= 0 && x < gridCellNum && y >= 0 && y < gridCellNum;
+        return x >= 0 && x < gridLength && y >= 0 && y < gridLength;
     }
      
     /**
      * An inner GridBox class for a single hitting unit object
      */
     public class GridBox extends Rectangle {
-
-        /**
-         *
-         */
-        public int pos_x,
-
-        /**
-         *
-         */
-        pos_y;
-
-        /**
-         *
-         */
-        public Ship ship = null;
-
-        /**
-         *
-         */
-        public boolean isHitted = false;
-
-        private final GridMap gridMap;
         
+        public int pos_x, pos_y;
+        public Ship ship = null;
+        public boolean isHitted = false;
+        private final GridMap gridMap;
+
         /**
          *
-         * @param mapObj
+         * @param owner
          * @param input_x
          * @param input_y
          */
-        public GridBox(GridMap mapObj, int input_x, int input_y) {
+        public GridBox(GridMap owner, int input_x, int input_y) {
+            
             super(20, 20);
+            
             this.pos_x = input_x;
             this.pos_y = input_y;
-            this.gridMap = mapObj;
-            if (!player2Flag) {
-                // initially set the box to blue color
-                setFill(Color.CADETBLUE);
-                // if a box was selected as hitted, set it to black color.
-                setStroke(Color.BLACK);
-            }else{
+            
+            this.gridMap = owner;
+            
+            if (!isEnemyMap) {
+                setFill(Color.CADETBLUE);// initially set the box to blue color
+                setStroke(Color.BLACK); // if a box was selected as hitted, set it to black color.
+            }
+            else{
                 setFill(Color.BLUE);
                 setStroke(Color.BLACK);
             }

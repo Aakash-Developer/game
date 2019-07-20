@@ -23,35 +23,28 @@ public class Ship extends Parent {
     public boolean verticalPlacement = true;
 
     /**
-     * This parameter indicates the capacity of getting hited for a placed ship.
+     * This parameter indicates the capacity of getting hit for a placed ship.
      */
-    public final int capacityType;    
-    private int hitCapacityVal;
+    public final int startingLength;    
+    private int remainingLength;
     
     /**
      * Constructor of a ship.
-     * @param type
+     * @param length
      * @param isVertical
      */
-    public Ship(int type, boolean isVertical) {
-        this.capacityType = type;
-        this.verticalPlacement = isVertical;
-        hitCapacityVal = type;
-    }
-    /**
-     * Method for checking whether a ship is sinked or not.
-     * @return 
-     */
-    public boolean isAlive() {
-        return hitCapacityVal > 0;
-    }
-    
-    /**
-     * Method for updating the health points of the ship
-     */
-    public void gotHit() {
-        hitCapacityVal--;
+    public Ship(int length, boolean isVertical) {
+        
+        this.startingLength      = length;
+        this.verticalPlacement   = isVertical;
+        remainingLength          = length;
     }
 
-    
+    public boolean isAlive() {
+        return remainingLength > 0;
+    }
+
+    public void gotHit() {
+        remainingLength--;
+    }
 }

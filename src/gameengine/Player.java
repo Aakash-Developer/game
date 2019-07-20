@@ -34,7 +34,7 @@ public class Player implements IPlayer{
     private final int totalShips = Constant.totalShips;       
     private Controller mainController;
     
-    public final int[] hitCapacityType = Constant.SHIPS_SIZE;
+    public final int[] orderedShipsSizeList = Constant.SHIPS_SIZE;
     public int iniShipsToPlace = totalShips;
 
     // Initialize the grid map for player side
@@ -44,16 +44,17 @@ public class Player implements IPlayer{
         }
         GridBox selectedGridBox = (GridBox) event.getSource();
 
-        if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(hitCapacityType[iniShipsToPlace-1], 
+        if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(orderedShipsSizeList[iniShipsToPlace-1], 
                 event.getButton() == MouseButton.PRIMARY), 
                 selectedGridBox.pos_x, selectedGridBox.pos_y)) {
+            
             if (--iniShipsToPlace == 0) {
                 /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                         + "             Player's move             "));
                 */
                 mainController.mainWindowView.displayMessage(3);
                 
-                iniComputerSide();
+                PlaceShipsAutomatically();
             }
         }
 
@@ -90,19 +91,23 @@ public class Player implements IPlayer{
         return this.view;
     }
     */
-    public void iniComputerSide() {
+    public void PlaceShipsAutomatically() {
         
         // computer's turn of placing ships
-        int type = mainController.ai.GetNumberOfShips();
+        int numberOfShips = mainController.ai.GetNumberOfShips();
 
-        while (type > 0) {
+        while (numberOfShips > 0) {
 
             Tuple coordinates = mainController.ai.NextMove();
+            
             int pos_x = (int) coordinates.t1;
             int pos_y = (int) coordinates.t2;
 
-            if (mainController.computerMapView.placingBattleShipOn_X_Y(new Ship(hitCapacityType[type-1], Math.random() < 0.5), pos_x, pos_y)) {
-                type--;
+            
+            Ship ship = new Ship(orderedShipsSizeList[numberOfShips-1] , Math.random() < 0.5 );
+            
+            if (mainController.computerMapView.placingBattleShipOn_X_Y(ship, pos_x, pos_y)) {
+                numberOfShips--;
             }
         }
 

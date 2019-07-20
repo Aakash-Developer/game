@@ -364,7 +364,7 @@ public class PlayerView{
                     }
                 }
 
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     two.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     //System.out.println("Place ship at: "+computerSelectedGridBox.abs_pos_x+", "+computerSelectedGridBox.abs_pos_y);
@@ -373,7 +373,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -393,7 +393,7 @@ public class PlayerView{
                     }
                 }
 
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     two.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     //System.out.println("Place ship at: "+computerSelectedGridBox.abs_pos_x+", "+computerSelectedGridBox.abs_pos_y);
@@ -402,7 +402,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }
@@ -442,7 +442,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     three1.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -450,7 +450,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -469,7 +469,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     three1.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -477,7 +477,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }
@@ -517,7 +517,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     three2.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -525,7 +525,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -544,7 +544,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     three2.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -552,7 +552,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }
@@ -592,7 +592,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     four.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -600,7 +600,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -619,7 +619,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     four.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -627,7 +627,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }
@@ -668,7 +668,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     five.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -676,7 +676,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -695,7 +695,7 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.hitCapacityType[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(controller.userPlayer.orderedShipsSizeList[controller.userPlayer.iniShipsToPlace-1], 
                     five.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     if (--controller.userPlayer.iniShipsToPlace == 0) {
@@ -703,7 +703,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.iniComputerSide();
+                        controller.userPlayer.PlaceShipsAutomatically();
                     }
                 }
             }

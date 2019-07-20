@@ -7,9 +7,10 @@
 package utils;
 
 import api.Constant;
+import api.Constant.*;
 import gameui.GridMap;
-import model.Ship;
 import javafx.geometry.Point2D;
+import model.Ship;
 
 /**
  *
@@ -32,4 +33,24 @@ public class Validate {
         return (int)value.t1 >= 0 && (int)value.t1 < Constant.GRID_SIZE &&
                (int)value.t2 >= 0 && (int)value.t2 < Constant.GRID_SIZE;        
     }
+     
+        
+    // 0 - > Empty
+    // 1 - > Ship
+    // 2 - > Unknown
+    // 3 - > Missed
+    // 4 - > Hit
+    public static boolean IsCoordinateUnknown(int[][] matrix,Tuple value){
+        return 2 == matrix[(int)value.t1][(int)value.t2];
+    }
+    
+    public static boolean IsCoordinateMissed(int[][] matrix,Tuple value){
+        return 3 == matrix[(int)value.t1][(int)value.t2];
+    }
+
+    public static boolean IsCoordinateHit(int[][] matrix, Tuple value){
+        return 4 == matrix[(int)value.t1][(int)value.t2];
+    }
+    
+
 }

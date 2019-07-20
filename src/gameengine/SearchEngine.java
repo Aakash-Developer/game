@@ -8,9 +8,9 @@ package gameengine;
 
 import api.Constant.Action;
 import api.Constant.State;
-import java.util.Dictionary;
-import java.util.Hashtable;
-
+import utils.Tuple;
+import java.util.concurrent.ThreadLocalRandom;
+import utils.Validate;
 /**
  *
  * @author zange
@@ -20,51 +20,149 @@ public class SearchEngine {
     State currentState;
     Action currentAction;
 
+    enum Move{
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        RANDOM,
+    }
+    
+    enum MoveFeedback{
+        MISSED,
+        HIT,
+        INITIAL,
+    }
+    
+    
+    enum CellState{
+        HIT,
+        UNKNOWN
+    }
+    
+    enum ShipState{
+        HIT,
+        DESTROYED
+    }
+    
+    Move previousMove;
+    
+    MoveFeedback feedbackPreviousMove;
+    Tuple firstHit;
+    boolean firstHitFlag;
+    boolean shipIsDestroyed;
+    Tuple previousCoordinate;
+    
+    
+    
     public SearchEngine(){
-    
-         
-    }
-   
-    public class Transition{
+ 
+        //previousMove = Move.RANDOM;
+        firstHitFlag = true;
+        shipIsDestroyed = false;
+        feedbackPreviousMove = MoveFeedback.INITIAL;
         
-        State state;
-        Action action;
-
-        public Transition(State state, Action action){
+    }
+    
+    public Tuple GetNextCoordinate(ShipState shipState){
+        
+        Tuple coordinate = null;
+        
+        
+        if(feedbackPreviousMove.equals(MoveFeedback.INITIAL)){
+            if(!firstHitFlag) {
+                firstHitFlag = true;
+            }
+            coordinate = GetTuple(new Tuple(0,0), Move.RANDOM);
+        }
+        else if(feedbackPreviousMove.equals(MoveFeedback.MISSED)){
+            coordinate = GetTuple(new Tuple(0,0), Move.RANDOM);
+        }
+        else if(feedbackPreviousMove.equals(MoveFeedback.HIT)){
             
-            this.state = state;
-            this.action = action;
+            if(shipIsDestroyed){
+                
+            }
+            
+            
+            if(firstHitFlag) {
+                firstHit = previousCoordinate;
+                firstHitFlag = false;
+            }
+            
+            coordinate = GetTuple(new Tuple(0,0), Move.RANDOM);
+        } 
+        
+        previousCoordinate = coordinate;
+        return coordinate;
+    }
+    
+    void SaveFirstHit(Tuple coordinate){
+        
+        firstHit = coordinate;
+    }
+    
+    Tuple GetTuple(Tuple currentPosition, Move move){
+            
+        Tuple coordinate = null; 
+        
+        switch(move){
+
+            case UP:
+                coordinate = new Tuple((int)currentPosition.t1 + 1, (int)currentPosition.t2);
+                break;
+            case DOWN:
+                coordinate = new Tuple((int)currentPosition.t1 - 1, (int)currentPosition.t2);
+                break;
+            case LEFT:
+                coordinate = new Tuple((int)currentPosition.t1, (int)currentPosition.t2 - 1);
+                break;
+            case RIGHT:
+                coordinate = new Tuple((int)currentPosition.t1 + 1, (int)currentPosition.t2 + 1);
+                break;
+            case RANDOM:
+                coordinate = new Tuple(
+                        ThreadLocalRandom.current().nextInt(1, 12 + 1), 
+                        ThreadLocalRandom.current().nextInt(1, 12 + 1));
+                break;
+            default:
+                break;     
         }
         
-        @Override    
-        public boolean equals(Object o) {        
-      
-            Transition obj = (Transition)o;
-            return obj != null && this.state.equals(obj.state) && this.action.equals(obj.action);    
-        }    
-        
-        @Override    
-        public int hashCode() {        
-            
-            return 17 + 21*state.hashCode() + 13*action.hashCode();    
-        }  
-    }
-    
-    
-    public class Fsm{
-        
-        Dictionary<Transition,State> fsm;
-        
-        public Fsm(){
-
-            fsm = new Hashtable<Transition,State>(){
-                {
-                    put(new Transition(State.Invalid , Action.INIT), State.RANDOM_SEARCH);
-                    put(new Transition(State.RANDOM_SEARCH , Action.INIT), State.RANDOM_SEARCH);
-                }
-            };
-            
+        if(!Validate.IsCoordinateValid(coordinate)){
+            coordinate = null;
         }
+        
+        return coordinate;
     }
     
+    Move ChangeDirection(Move previousMove){
+        
+        Move newDirection;
+        switch(previousMove){
+            
+            case UP:
+              newDirection= Move.DOWN;
+              break;
+            case DOWN:
+              newDirection= Move.UP;
+              break;
+            case LEFT:
+              newDirection= Move.RIGHT;
+              break;
+            case RIGHT:
+              newDirection= Move.LEFT;
+              break;
+            default:
+              newDirection= Move.RANDOM;
+              break;
+        }
+        
+        return newDirection;
+    }
+    
+//    Move ChangeAxis(){
+//        
+//    }
 }
+

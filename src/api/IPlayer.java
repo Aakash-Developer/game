@@ -20,8 +20,5 @@ public interface IPlayer {
      * Method for fetching the coordination of next move
      * @return Tuple information about x-y position
      */
-    public Tuple NextMove();
-    
-    public int GetNumberOfShips();
-                    
+    public Tuple NextMove();             
 }

@@ -94,10 +94,10 @@ public class ComputerPlayer implements IPlayer{
      * Method of getting the number of ships for computer player.
      * @return
      */
-    @Override
-    public int GetNumberOfShips() {
-        return Constant.totalShips;
-    }
+//    @Override
+//    public int GetNumberOfShips() {
+//        return Constant.totalShips;
+//    }
     
     // Initialize the grid map for computer side
     public GridMap computerMapView = new GridMap(true, (MouseEvent event) -> {

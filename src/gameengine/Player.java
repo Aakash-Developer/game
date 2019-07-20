@@ -34,7 +34,7 @@ public class Player implements IPlayer{
     private final int totalShips = Constant.totalShips;       
     private Controller mainController;
     
-    public final int[] orderedShipsSizeList = Constant.SHIPS_SIZE;
+    public final int[] ShipsSizeOrderedList = Constant.SHIPS_SIZE;
     public int iniShipsToPlace = totalShips;
 
     // Initialize the grid map for player side
@@ -44,7 +44,7 @@ public class Player implements IPlayer{
         }
         GridBox selectedGridBox = (GridBox) event.getSource();
 
-        if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(orderedShipsSizeList[iniShipsToPlace-1], 
+        if (this.playerMapView.placingBattleShipOn_X_Y(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
                 event.getButton() == MouseButton.PRIMARY), 
                 selectedGridBox.pos_x, selectedGridBox.pos_y)) {
             
@@ -54,7 +54,7 @@ public class Player implements IPlayer{
                 */
                 mainController.mainWindowView.displayMessage(3);
                 
-                PlaceShipsAutomatically();
+                ComputerPlaceShipsAutomatically();
             }
         }
 
@@ -75,10 +75,10 @@ public class Player implements IPlayer{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public int GetNumberOfShips() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public int GetNumberOfShips() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     /*
     @Override
@@ -91,12 +91,11 @@ public class Player implements IPlayer{
         return this.view;
     }
     */
-    public void PlaceShipsAutomatically() {
+    public void ComputerPlaceShipsAutomatically() {
         
-        // computer's turn of placing ships
-        int numberOfShips = mainController.ai.GetNumberOfShips();
-
-        while (numberOfShips > 0) {
+        int numOfShips = ShipsSizeOrderedList.length;
+        
+        while (numOfShips > 0) {
 
             Tuple coordinates = mainController.ai.NextMove();
             
@@ -104,13 +103,13 @@ public class Player implements IPlayer{
             int pos_y = (int) coordinates.t2;
 
             
-            Ship ship = new Ship(orderedShipsSizeList[numberOfShips-1] , Math.random() < 0.5 );
+            Ship ship = new Ship(ShipsSizeOrderedList[numOfShips-1] , Math.random() < 0.5 );
             
             if (mainController.computerMapView.placingBattleShipOn_X_Y(ship, pos_x, pos_y)) {
-                numberOfShips--;
+                numOfShips--;
             }
         }
-
+        
         mainController.isPlayer2Turn = true;
         mainController.computerMapView.finishIni = true;
     }

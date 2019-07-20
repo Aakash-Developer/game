@@ -19,6 +19,7 @@ public class SearchEngine {
     
     State currentState;
     Action currentAction;
+    int counter;
 
     enum Move{
         UP,
@@ -52,16 +53,60 @@ public class SearchEngine {
     boolean firstHitFlag;
     boolean shipIsDestroyed;
     Tuple previousCoordinate;
+    int gridSize;
+    int[][] shootingMap;
     
     
-    
-    public SearchEngine(){
+    public SearchEngine(int gridSize, int[][]shootingMap){
  
         //previousMove = Move.RANDOM;
         firstHitFlag = true;
         shipIsDestroyed = false;
         feedbackPreviousMove = MoveFeedback.INITIAL;
+        counter = 0;
+        this.gridSize = gridSize;
+        this.shootingMap = shootingMap;
+    }
+    
+
+    
+    public Tuple GetNextCoordinate(boolean shipState, boolean hit){
         
+        
+        
+        counter++;
+        return  new Tuple(counter,counter);
+        
+//        if(shootingMap[(int)coord.t1][(int)coord.t2]==3 || 
+//           shootingMap[(int)coord.t1][(int)coord.t2]==4){
+//            
+//        }
+//
+//        if(counter==1){
+//            return new Tuple(1,1);
+//        }
+//        else if(counter==2){
+//            return new Tuple(2,2);
+//        }
+//        else if(counter==3){
+//            return new Tuple(3,3);
+//        }
+//        else if(counter==4){
+//            return new Tuple(4,4);
+//        }
+//        else if(counter==5){
+//            return new Tuple(5,5);
+//        }
+//        else if(counter==6){
+//            return new Tuple(6,6);
+//        }
+//        else if(counter==7){
+//            return new Tuple(7,7);
+//        }
+//        else{
+//            return new Tuple(9,9);
+//        }
+
     }
     
     public Tuple GetNextCoordinate(ShipState shipState){

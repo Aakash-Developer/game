@@ -31,6 +31,7 @@ public class ComputerPlayer implements IPlayer{
     private Controller mainController;
     public long startTimeStamp;
     public long endTimeStamp;
+    public SearchEngine searchEngine;
     //public ComputerPlayer(IPlayerModel model, IPlayerView view) {
     //    super(model, view);
     //}
@@ -70,6 +71,16 @@ public class ComputerPlayer implements IPlayer{
      */
     @Override
     public Tuple NextMove() {
+        
+        //int a = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
+        //int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
+        int a = _random.nextInt(_gridSize);
+        int b = _random.nextInt(_gridSize);
+
+        return new Tuple(a, b);
+    }
+    
+    public Tuple NextMove(int status, boolean wasSank) {
         
         //int a = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
         //int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
@@ -145,6 +156,8 @@ public class ComputerPlayer implements IPlayer{
         }*/
     },_gridSize);
     
+    
+    
     /**
      * Method for initiating a computer player.
      * 
@@ -153,25 +166,45 @@ public class ComputerPlayer implements IPlayer{
     public ComputerPlayer(Controller injectedController){
         this.mainController = injectedController;
         this._gridSize = injectedController.gridCellNum;
+        this.shootingMap = new int[this._gridSize ][this._gridSize ];
+         searchEngine = new SearchEngine(this._gridSize, shootingMap);
     }
+
+    int[][] shootingMap;
     
     public void computerMove() {
         
         while (mainController.computerTurn) {
+ 
+//            Tuple nextmove = mainController.ai.NextMove();
+//            int x = (int) nextmove.t1;
+//            int y = (int) nextmove.t2;
             
-            Tuple nextmove = mainController.ai.NextMove();
+            Tuple nextmove = searchEngine.GetNextCoordinate(true,true);
             int x = (int) nextmove.t1;
             int y = (int) nextmove.t2;
             
-            int counter=0;
-            for(int i=0;i<10000;i++){
-                counter+=i;
-            }
+//            int counter=0;
+//            for(int i=0;i<10000;i++){
+//                counter+=i;
+//            }
             
             GridBox selectedGridBox = mainController.playerMapView.getGridBoxByCoordinate(x, y);
-            if (selectedGridBox.isHitted)
-                continue;
             
+            if (selectedGridBox.isHitted){
+                
+                System.out.println("Ship has been hit");
+                
+                if(selectedGridBox.ship.isAlive()){
+                    System.out.println("Ship is alive");
+                }
+                else{
+                    System.out.println("Ship Sank");
+                }
+                
+                continue;
+            }
+                
             if(mainController.mainWindowView.salvoCheckBox){
                 mainController.playerMapView.salvoMoveCheck[mainController.playerMapView.moveCounter] = selectedGridBox.hitGridBox();
                 mainController.playerMapView.moveCounter++;

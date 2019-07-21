@@ -30,8 +30,8 @@ public class Validate {
     
     public static boolean IsCoordinateValid(Tuple value){
         
-        return (int)value.t1 >= 0 && (int)value.t1 < Constant.GRID_SIZE &&
-               (int)value.t2 >= 0 && (int)value.t2 < Constant.GRID_SIZE;        
+        return value.t1 >= 0 && value.t1 < Constant.GRID_SIZE &&
+               value.t2 >= 0 && value.t2 < Constant.GRID_SIZE;        
     }
      
         

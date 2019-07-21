@@ -309,13 +309,14 @@ public class GridMap extends Parent {
         
         public boolean hitGridBox(){
 
+            isHitted = true;
             return DetermineShipWasHit();
         }
         
         
         public boolean DetermineShipWasHit(){
             
-            boolean isAhit = false;
+            boolean isHit = false;
             
             MapModel cell = GetUpdatedMapModel();
             
@@ -332,7 +333,7 @@ public class GridMap extends Parent {
                         gridMap.shipsNumOnMap--;
                     }
                     
-                    isAhit = true;
+                    isHit = true;
                 }
             }
             else
@@ -340,7 +341,7 @@ public class GridMap extends Parent {
                 this.setFill(Color.BLACK);
             }
             
-            return isAhit;
+            return isHit;
         }
         
         public MapModel GetUpdatedMapModel(){
@@ -377,6 +378,18 @@ public class GridMap extends Parent {
         public Space space       = Space.IsEmpty;
         public Uncover uncover   = Uncover.No;
         public Ship ShipInstance = null; //set and get the ship instance
+        public int visitCounter  = 0;
+
+        
+        public boolean IsSpaceEmpty(){
+            
+            return space == Space.IsEmpty;
+        }
+        
+        public boolean IsUncover(){
+            
+            return uncover == Uncover.Yes;
+        }
 
         //Attacking mode or seen from attrackers perspective
         public boolean IsShipAlive(){

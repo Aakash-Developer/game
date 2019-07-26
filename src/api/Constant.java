@@ -17,7 +17,7 @@ public class Constant {
     public static int totalShips = 5;
     
     //NEW ONES
-    public static int GRID_SIZE = gridCellNum;
+    public static int GRID_SIZE = 10;
     public static int[] SHIPS_SIZE = new int[]{2,3,3,4,5};
     
     public enum Space{

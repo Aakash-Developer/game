@@ -107,8 +107,8 @@ public class PlayerView{
     
     public PlayerView(Controller injectedController){
         this.controller = injectedController;
-        this.playerMapView = injectedController.playerMapView;
-        this.computerMapView = injectedController.computerMapView;
+        this.playerMapView = injectedController.humanView;
+        this.computerMapView = injectedController.computerView;
     }
     /*
      public void SimulateUserEnterTheValuesAndClickedStart(){
@@ -254,7 +254,7 @@ public class PlayerView{
             this.userName=name;
             primaryStageObj.setTitle("Battleship Game: "+this.userName+" VS Computer");
         });
-        System.out.print("userName: "+userName);
+        //System.out.print("userName: "+userName);
         
         CreateRectangles();
         root.getChildren().addAll(two,three1,three2, four, five);
@@ -364,16 +364,16 @@ public class PlayerView{
                     }
                 }
 
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     two.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
                     //System.out.println("Place ship at: "+computerSelectedGridBox.abs_pos_x+", "+computerSelectedGridBox.abs_pos_y);
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -393,16 +393,16 @@ public class PlayerView{
                     }
                 }
 
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     two.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
                     //System.out.println("Place ship at: "+computerSelectedGridBox.abs_pos_x+", "+computerSelectedGridBox.abs_pos_y);
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -442,15 +442,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     three1.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -469,15 +469,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     three1.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -517,15 +517,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     three2.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -544,15 +544,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     three2.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -592,15 +592,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     four.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -619,15 +619,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     four.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -668,15 +668,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     five.isVertical), 
                     (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -695,15 +695,15 @@ public class PlayerView{
                         r.InvalidState();
                     }
                 }
-                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.userPlayer.ShipsSizeOrderedList[controller.userPlayer.iniShipsToPlace-1], 
+                if (this.playerMapView.TryToPlaceShipOnMap(new Ship(controller.human.ShipsSizeOrderedList[controller.human.iniShipsToPlace-1], 
                     five.isVertical), 
                     (int)((sence_X-345)/21), (int)((sence_Y-474)/21))) {
-                    if (--controller.userPlayer.iniShipsToPlace == 0) {
+                    if (--controller.human.iniShipsToPlace == 0) {
                         /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.userPlayer.ComputerPlaceShipsAutomatically();
+                        controller.human.ComputerPlaceShipsAutomatically();
                     }
                 }
             }

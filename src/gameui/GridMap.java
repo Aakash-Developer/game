@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.MapModel;
 import model.Ship;
 
 /**
@@ -28,13 +29,10 @@ public class GridMap extends Parent {
     
     private final VBox gridMatrix   = new VBox(); // default setting for placing ship is vertically!
     private boolean isEnemyMap      = false;  // if GirdMap belonged enymy's side, this flag is true
-    private int gridLength          = 0;
-
     public int shipsNumOnMap        = 5;    
     public boolean[] salvoMoveCheck = {false,false,false,false,false};
     public int moveCounter          = 0;
     public boolean finishIni        = false;
-    
     public MapModel[][] mapModel;
    
     /**
@@ -43,27 +41,17 @@ public class GridMap extends Parent {
      * @param handler
      * @param length
      */
-    public GridMap(boolean isEnemyMap, 
-                   EventHandler<? super MouseEvent> handler, 
-                   int length) 
+    public GridMap(MapModel[][] mapModel, boolean isEnemyMap, 
+                   EventHandler<? super MouseEvent> handler) 
     {
-        this.isEnemyMap         = isEnemyMap;
-        this.gridLength         = length;
-        
-        //---Model
-        this.mapModel           = new MapModel[this.gridLength][this.gridLength];     //create model matrix
-        
-        for(int x=0;x<this.gridLength;x++){
-            for(int y=0;y<this.gridLength;y++){
-                this.mapModel[x][y] = new MapModel();   
-            }
-        }
-        
-        for (int pos_y = 0; pos_y < gridLength; pos_y++) {                  // create view matrix
+        this.isEnemyMap = isEnemyMap;
+        this.mapModel   = mapModel;
+              
+        for (int pos_y = 0; pos_y < Constant.GRID_SIZE; pos_y++) { // create view matrix
             
             HBox row = new HBox();
             
-            for (int pos_x = 0; pos_x < gridLength; pos_x++) {
+            for (int pos_x = 0; pos_x < Constant.GRID_SIZE; pos_x++) {
                 
                 GridBox gridBoxObj = new GridBox(this, pos_x, pos_y);
                 gridBoxObj.setOnMouseClicked(handler);
@@ -128,6 +116,8 @@ public class GridMap extends Parent {
         
         boolean succesfull = false;
         
+        applyModelToView();
+        
         if (doesTheShipFitsAtThisPosition(ship , pos_x, pos_y)) {
             
             int length = ship.length;
@@ -153,15 +143,15 @@ public class GridMap extends Parent {
     }
     
     
-    public void ApplyModelToGridMap(){
+    public void applyModelToView(){
         
-        for(int x = 0 ; x<this.gridLength ; x++){
-            for(int y = 0 ; y<this.gridLength ; y++){
+        for(int x = 0 ; x< Constant.GRID_SIZE ; x++){
+            for(int y = 0 ; y< Constant.GRID_SIZE ; y++){
                 
                 if(this.mapModel[x][y].space == Space.IsShip){
                     
                     GridBox rectangle = getGridBoxByCoordinate(x,y);
-                    //rectangle.shipInstance = ship;
+                    rectangle.shipInstance = this.mapModel[x][y].ShipInstance;
 
                     if (!isEnemyMap) {
                         rectangle.setFill(Color.WHITE);
@@ -171,7 +161,6 @@ public class GridMap extends Parent {
             }   
         }
     }
-    
     
     /**
      * method for validating the proper position to place a ship
@@ -212,6 +201,52 @@ public class GridMap extends Parent {
      */
     
 
+    private boolean isValidShipPosition(Ship ship , MapModel[][] model, int x, int y) {
+        int length = ship.length;
+        // Check if vertically placing the ships is ok ?!
+        if (ship.isVertical) {
+            for (int i = y; i < y + length; i++) {
+                if (!isValidPosition(x, i))
+                    return false;
+
+                //GridBox selectedBox = getGridBoxByCoordinate(x, i);
+                
+                // if this box belongs to a ship, then it is invalid!
+                if (model[x][i].ShipInstance != null)
+                    return false;
+                // if this neighborBox is at invalid position, then it is invalid!
+                for (GridBox neighborBox : getSurroundingBoxes(x, i)) {
+                    if (!isValidPosition(x, i))
+                        return false;
+                    // rechack again!!
+                    if (neighborBox.shipInstance != null)
+                        return false;
+                }
+            }
+        }
+        else { // Check if horizontally placing the ships is ok ?!
+            for (int i = x; i < x + length; i++) {
+                if (!isValidPosition(i, y))
+                    return false;
+                // if this box belongs to a ship, then it is invalid!
+                GridBox singleGridBox = getGridBoxByCoordinate(i, y);
+                if (singleGridBox.shipInstance != null)
+                    return false;
+                // if this neighborBox is at invalid position, then it is invalid!
+                for (GridBox neighborBox : getSurroundingBoxes(i, y)) {
+                    if (!isValidPosition(i, y))
+                        return false;
+                    // rechack again!!
+                    if (neighborBox.shipInstance != null)
+                        return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    
     private boolean doesTheShipFitsAtThisPosition(Ship ship , int x, int y) {
         int length = ship.length;
         // Check if vertically placing the ships is ok ?!
@@ -263,7 +298,7 @@ public class GridMap extends Parent {
 
     private boolean isValidPosition(double x, double y) {
         // checking if a coordinate is valid?!
-        return x >= 0 && x < gridLength && y >= 0 && y < gridLength;
+        return x >= 0 && x < Constant.GRID_SIZE && y >= 0 && y < Constant.GRID_SIZE;
     }
      
     /**
@@ -371,56 +406,4 @@ public class GridMap extends Parent {
         }
         */
     }
-    
-    public class MapModel{
-
-        //properties
-        public Space space       = Space.IsEmpty;
-        public Uncover uncover   = Uncover.No;
-        public Ship ShipInstance = null; //set and get the ship instance
-        public int visitCounter  = 0;
-
-        
-        public boolean IsSpaceEmpty(){
-            
-            return space == Space.IsEmpty;
-        }
-        
-        public boolean IsUncover(){
-            
-            return uncover == Uncover.Yes;
-        }
-
-        //Attacking mode or seen from attrackers perspective
-        public boolean IsShipAlive(){
-            
-            if(this.ShipInstance!=null){
-                return this.ShipInstance.isAlive();
-            }
-            
-            return false;
-        }
-        
-        public boolean IsShipFound(){
-            
-            return space    == Space.IsShip && 
-                   uncover  == Uncover.Yes;
-        }
-        
-        public boolean IsAMissedHit(){
-            
-            return space    == Space.IsEmpty &&
-                   uncover  == Uncover.Yes;
-        }
-        
-        //Player mode, setting the ships in the map
-        public void SetAShip(Ship ship){
-            
-            this.ShipInstance   = ship;
-            this.space          = Space.IsShip;
-            this.uncover        = Uncover.No;
-        }
-        
-    }
-
 }

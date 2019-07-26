@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gameengine;
 
 import api.Constant;
 import api.IPlayer;
-import api.IPlayerModel;
-import api.IPlayerView;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
-import model.Ship;
 import javafx.scene.input.MouseButton;
+import model.MapModel;
+import model.Ship;
+import utils.PrintDebug;
 import utils.Tuple;
 
 /**
@@ -25,91 +19,74 @@ import utils.Tuple;
  * @author zange
  */
 public class Player implements IPlayer{
-        
-    //public IPlayerModel model;
-    //public IPlayerView view;
-    
-    
-    private int gridSize=Constant.gridCellNum;
-    private final int totalShips = Constant.totalShips;       
-    private Controller mainController;
-    
-    public final int[] ShipsSizeOrderedList = Constant.SHIPS_SIZE;
-    public int iniShipsToPlace = totalShips;
 
-    // Initialize the grid map for player side
-    public GridMap playerMapView = new GridMap(false, event -> {
-        if (mainController.isPlayer2Turn){
-            return;
+    private final int totalShips    = Constant.totalShips;    
+    public int iniShipsToPlace      = totalShips;
+    
+    private Controller mainController;
+    public final int[] ShipsSizeOrderedList = Constant.SHIPS_SIZE;
+    public MapModel[][] mapModel;
+    public GridMap mapView;
+    
+    public Player(Controller injectedController){
+        
+        this.mainController = injectedController;
+        this.mapModel       = new MapModel[Constant.GRID_SIZE][Constant.GRID_SIZE];  
+        
+        for(int x=0;x<Constant.GRID_SIZE;x++){
+            for(int y=0;y<Constant.GRID_SIZE;y++){
+                this.mapModel[x][y] = new MapModel(); 
+            }
         }
+        
+        Initialize(this.mapModel);
+    }
+    
+
+    private void Initialize(MapModel[][] mapModel) {
+        
+        mapView = new GridMap(mapModel, false, event -> {
+
         GridBox selectedGridBox = (GridBox) event.getSource();
 
-        if (this.playerMapView.TryToPlaceShipOnMap(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
+        if (this.mapView.TryToPlaceShipOnMap(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
                 event.getButton() == MouseButton.PRIMARY), 
                 selectedGridBox.pos_x, selectedGridBox.pos_y)) {
+            
+            //PrintDebug.printModel("human placing ships in the model", mapModel);
             
             if (--iniShipsToPlace == 0) {
                 /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
                         + "             Player's move             "));
                 */
                 mainController.mainWindowView.displayMessage(3);
-                
-                ComputerPlaceShipsAutomatically();
+                PrintDebug.printModel("human", mapModel);
             }
         }
-
-    },gridSize);
-    /*
-    public Player(IPlayerModel model, IPlayerView view){
-        this.model = model;
-        this.view = view;
+        });
     }
-    */
-    public Player(Controller injectedController){
-        this.mainController = injectedController;
-        this.gridSize = injectedController.gridCellNum;  
-    }
-    
-    @Override
-    public Tuple NextMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//    @Override
-//    public int GetNumberOfShips() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
-    /*
-    @Override
-    public IPlayerModel GetModel() {
-        return this.model;
-    }
-
-    @Override
-    public IPlayerView GetView() {
-        return this.view;
-    }
-    */
+        
     public void ComputerPlaceShipsAutomatically() {
         
         int numOfShips = ShipsSizeOrderedList.length;
-        
         while (numOfShips > 0) {
 
             Tuple possibleCoordinate = mainController.ai.NextMove();
                        
             Ship ship = new Ship(ShipsSizeOrderedList[numOfShips-1] , Math.random() < 0.5 );
             
-            if (mainController.computerMapView.TryToPlaceShipOnModel(ship, possibleCoordinate.t1, possibleCoordinate.t2)) {
+            if (mainController.computerView.TryToPlaceShipOnModel(ship, possibleCoordinate.t1, possibleCoordinate.t2)) {
                 numOfShips--;
             }
         }
         
-        mainController.computerMapView.ApplyModelToGridMap();
-        
-        mainController.isPlayer2Turn = true;
-        mainController.computerMapView.finishIni = true;
+        PrintDebug.printModel("human", mapModel);
+        mainController.computerView.applyModelToView();
+        mainController.computerView.finishIni = true;
     }
-    
+
+    @Override
+    public Tuple NextMove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

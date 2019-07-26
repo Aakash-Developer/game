@@ -34,55 +34,10 @@ public class ComputerPlayer implements IPlayer{
     public long startTimeStamp;
     public long endTimeStamp;
     public SearchEngine searchEngine;
-    //public ComputerPlayer(IPlayerModel model, IPlayerView view) {
-    //    super(model, view);
-    //}
     
-    /*
-    public void Initialize(){
-        
-        PositionShipsOnTheMap();
-        PlayerView pv = (PlayerView)this.GetView();
-        pv.OnButtonStartClicked();
-    }
-          
-    private void PositionShipsOnTheMap(){
-         
-         int[][] example = new int[][]{ 
-             {1,0,0,0,0,0,0,0,0,1,1,1},
-             {1,0,0,0,0,0,0,0,0,0,0,0},
-             {1,0,0,0,0,0,0,0,0,0,0,0},
-             {1,0,0,0,0,0,0,0,0,0,0,0},
-             {1,0,0,0,0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0,0,0,1,1},
-             {0,0,0,0,0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0,0,0,0,0},
-             {1,1,1,1,0,0,0,0,0,1,1,1},
-         };
-         
-         this.model.SetPlayerMap(example);
-     }
-     */
     
-    /**
-     * Method of making the next move for computer player.
-     * @return
-     */
     @Override
     public Tuple NextMove() {
-        
-        //int a = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
-        //int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
-        int a = _random.nextInt(_gridSize);
-        int b = _random.nextInt(_gridSize);
-
-        return new Tuple(a, b);
-    }
-    
-    public Tuple NextMove(int status, boolean wasSank) {
         
         //int a = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
         //int b = ThreadLocalRandom.current().nextInt(0, this.model.GetController().GetGridSize() + 1);
@@ -158,21 +113,14 @@ public class ComputerPlayer implements IPlayer{
         }*/
     },_gridSize);
     
-    
-    
-    /**
-     * Method for initiating a computer player.
-     * 
-     * @param injectedController
-     */
     public ComputerPlayer(Controller injectedController){
+        
         this.mainController = injectedController;
-        this._gridSize = injectedController.gridCellNum;
-        this.shootingMap = new int[this._gridSize ][this._gridSize ];
-         searchEngine = new SearchEngine(this._gridSize, shootingMap);
+        this._gridSize      = injectedController.gridCellNum;
+        this.shootingMap    = new int[this._gridSize ][this._gridSize ];
          
-        processState = ProcessState.Initial;
-        mapModel     = mainController.playerMapView.mapModel;
+        processState     = ProcessState.Initial;
+        mapModel         = mainController.playerMapView.mapModel;
         nextPosition     = null;
         prevPosition     = null;
         firstHit         = null;
@@ -201,7 +149,7 @@ public class ComputerPlayer implements IPlayer{
             Repeat
         }
     
-    public Tuple ComputerMove(){
+    public Tuple getNextComputerMove(){
 
         if(this.prevPosition != null){ //Determine next action from previous move
             
@@ -289,6 +237,7 @@ public class ComputerPlayer implements IPlayer{
                     this.right = true;
                     if(this.left){ //let it go right one step and change axis
                         processState = ProcessState.Down;
+                        continue;
                     }
                     else{
                         nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
@@ -300,8 +249,10 @@ public class ComputerPlayer implements IPlayer{
                             ThreadLocalRandom.current().nextInt(1, this._gridSize + 1));
                     break;
                 default:
+                    System.out.println("Error");
                     break;     
             }
+            
             
             if(!IsCoordinateValid(nextPosition)){ //coordinate out of range, change direction
                 
@@ -326,7 +277,7 @@ public class ComputerPlayer implements IPlayer{
                 }
             }
             else{
-                
+                Tuple.printIt(nextPosition);
                 MapModel cell = mapModel[this.nextPosition.t1][this.nextPosition.t2];
             
                 if(cell.IsUncover()){ //coordinate out of range, change direction
@@ -364,7 +315,7 @@ public class ComputerPlayer implements IPlayer{
         
         while (mainController.computerTurn) {
  
-            Tuple nextmove = ComputerMove();
+            Tuple nextmove = getNextComputerMove();
             int x = nextmove.t1;
             int y = nextmove.t2;
             

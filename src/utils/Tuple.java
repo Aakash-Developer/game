@@ -19,6 +19,17 @@ public class Tuple{
     
     this.t1 = t1; 
     this.t2 = t2; 
+    
+    }
+
+    public static void printIt(Tuple tuple){
+        
+        if(tuple != null){
+            System.out.println("Tuple:"+"("+tuple.t1+","+tuple.t2+")");
+        }
+        else{
+            System.out.println("Tuple NULL");
+        }
   } 
     
 } 

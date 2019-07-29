@@ -57,9 +57,15 @@ public class MapModel{
             this.uncover        = Constant.Uncover.No;
         }
         
-        public String ToString(){
+        public String space(){
             
-            return space.equals(Constant.Space.IsEmpty)?" ":"x";
+            return space.equals(Constant.Space.IsEmpty)?" ":"s";
+            
+        }
+        
+        public String uncover(){
+            
+            return uncover.equals(Constant.Uncover.No)?" ":"u";
             
         }
     }

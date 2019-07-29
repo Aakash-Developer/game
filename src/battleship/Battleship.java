@@ -2,7 +2,7 @@ package battleship;
 
 import api.IController;
 import api.IPlayer;
-import gameengine.ComputerPlayer;
+import gameengine.OponentMap;
 import gameengine.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;

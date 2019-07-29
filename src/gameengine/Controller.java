@@ -2,6 +2,7 @@ package gameengine;
 
 import api.Constant;
 import api.Constant.GameType;
+import api.Constant.Turn;
 import api.IController;
 import api.IPlayer;
 import api.IPlayerView;
@@ -20,18 +21,25 @@ public class Controller implements IController
     //public boolean isPlayer2Turn = false;
     public boolean computerTurn = false;
     
-    public final ComputerPlayer ai;
-    public final Player human;
-    public GridMap computerView, humanView;
-
+    
+    public final OponentMap oponent;
+    public final PlayerMap player;
+    public GridMap oponentView, playerView;
+    public Turn turn;
+    public ComputerPlayer ai;
+    
     public Controller(){
    
-        this.human = new Player(this);
-        this.humanView = human.mapView;     
+        this.turn = Turn.None;
         
-        this.ai = new ComputerPlayer(this);        
-        this.computerView = ai.mapView;
-        this.ai.placeShipsRandomly();
+        this.player = new PlayerMap(this);
+        this.playerView = player.mapView;     
+        
+        this.oponent = new OponentMap(this);        
+        this.oponentView = oponent.mapView;
+        
+        this.oponent.placeShipsRandomly();
+        this.ai = new ComputerPlayer(this.player.mapModel);
         
         CreateView();
     }

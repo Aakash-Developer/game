@@ -30,6 +30,22 @@ public class Constant {
         No,
     }
     
+    public enum Turn{
+        None,
+        Player1,
+        Player2
+    }
+    
+    public enum ProcessState {
+        Initial,
+        Random,
+        Left,
+        Right,
+        Up,
+        Down,
+        Repeat
+    }
+        
     public enum ShootingMapStatus{
         
         HIT,

@@ -100,10 +100,8 @@ public class ComputerPlayer {
                         default:
                             processState = ProcessState.Random;
                             break;  
-                    }
-                    
+                    }             
                 }
-                
             }
         }
         
@@ -112,9 +110,13 @@ public class ComputerPlayer {
         while(this.nextPosition == null){
 
             switch(processState){
-
                 case Initial:
-                    nextPosition = new Tuple(1,0);  //  TEST PURPOSE. TO BE REMOVED
+                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
+                    //nextPosition = new Tuple(1,0);  //  TEST PURPOSE. TO BE REMOVED
+                    //nextPosition = new Tuple(1,3);  //  TEST PURPOSE. TO BE REMOVED
+                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
+                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
+                    
                     processState = ProcessState.Random;
                     break;
                 case Up:
@@ -128,9 +130,10 @@ public class ComputerPlayer {
                     nextPosition = new Tuple(this.prevPosition.t1 - 1, this.prevPosition.t2);
                     break;
                 case Right:
-                    this.right = true;
+                    this.right = true;             
                     if(this.left){ //let it go right one step and change axis
                         processState = ProcessState.Down;
+                        nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
                         continue;
                     }
                     else{
@@ -143,10 +146,8 @@ public class ComputerPlayer {
                             ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
                     break;
                 default:
-
                     break;     
             }
-            
             
             if(!IsCoordinateValid(nextPosition)){ //coordinate out of range, change direction
                 
@@ -171,9 +172,10 @@ public class ComputerPlayer {
                 }
             }
             else{
+                
                 MapModel cell = mapModel[this.nextPosition.t1][this.nextPosition.t2];
             
-                if(cell.IsUncover()){ //coordinate out of range, change direction
+                if(cell.IsUncover()){ // if the cell has been hit/uncover already, try the next one
                 
                     this.prevPosition = this.nextPosition;
                     nextPosition = null;
@@ -183,13 +185,19 @@ public class ComputerPlayer {
         
         this.prevPosition = this.nextPosition;
         
+        printNextMove(processState);
+
+        return nextPosition;
+    }
+
+    private void printNextMove(ProcessState processState) {
         
         switch(processState){
             case Up:
-                System.out.println("Up:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
+                System.out.println("Down:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
                 break;
             case Down:
-                System.out.println("Down:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
+                System.out.println("Up:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
                 break;
             case Left:
                 System.out.println("Left:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
@@ -201,7 +209,5 @@ public class ComputerPlayer {
                 System.out.println("Random:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
                 break;
         }
-        
-        return nextPosition;
     }
 }

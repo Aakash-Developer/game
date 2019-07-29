@@ -8,6 +8,8 @@ package gameengine;
 
 import api.Constant;
 import api.Constant.ProcessState;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import model.MapModel;
 import utils.PrettyPrint;
@@ -26,6 +28,8 @@ public class ComputerPlayer {
     Tuple firstHit;
     int counterFirstHit;
     boolean left,right,up,down;
+    int index = 0;
+    List<Tuple> list;
 
     private final MapModel[][] mapModel;
     
@@ -41,6 +45,8 @@ public class ComputerPlayer {
         right            = false;
         up               = false;
         down             = false;
+        
+        list = GetTestSample();
     }
 
     public Tuple getNextComputerMove(){
@@ -111,11 +117,9 @@ public class ComputerPlayer {
 
             switch(processState){
                 case Initial:
-                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
-                    //nextPosition = new Tuple(1,0);  //  TEST PURPOSE. TO BE REMOVED
-                    //nextPosition = new Tuple(1,3);  //  TEST PURPOSE. TO BE REMOVED
-                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
-                    //nextPosition = new Tuple(5,2);  //  TEST PURPOSE. TO BE REMOVED
+                    
+                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+                    index++;
                     
                     processState = ProcessState.Random;
                     break;
@@ -132,6 +136,7 @@ public class ComputerPlayer {
                 case Right:
                     this.right = true;             
                     if(this.left){ //let it go right one step and change axis
+                        this.left = false;
                         processState = ProcessState.Down;
                         nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
                         continue;
@@ -141,9 +146,13 @@ public class ComputerPlayer {
                     }
                     break;
                 case Random:
-                    nextPosition = new Tuple(
-                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
-                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
+                    
+                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+                    index++;
+                    
+//                    nextPosition = new Tuple(
+//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
+//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
                     break;
                 default:
                     break;     
@@ -191,7 +200,7 @@ public class ComputerPlayer {
     }
 
     private void printNextMove(ProcessState processState) {
-        
+        System.out.print("Computer ->");
         switch(processState){
             case Up:
                 System.out.println("Down:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
@@ -209,5 +218,24 @@ public class ComputerPlayer {
                 System.out.println("Random:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
                 break;
         }
+    }
+
+    private List<Tuple> GetTestSample() {
+              
+        List<Tuple> coordinates = new ArrayList<Tuple>() { 
+            { 
+                add(new Tuple(5,1)); 
+                add(new Tuple(3,1)); 
+                add(new Tuple(1,1)); 
+                add(new Tuple(2,2)); 
+                add(new Tuple(4,4)); 
+                add(new Tuple(5,5));
+                add(new Tuple(6,6)); 
+                add(new Tuple(7,7)); 
+                add(new Tuple(8,8));
+            } 
+        };
+        
+        return coordinates;
     }
 }

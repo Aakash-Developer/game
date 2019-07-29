@@ -128,6 +128,8 @@ public class OponentMap implements IPlayer{
                 //root.setLeft(new Text("\n\n\n\n\n       Nice...You WIN the Battle!! "));
                 mainController.mainWindowView.displayMessage(2);
             }
+            
+            System.out.println("Player->"+selectedGridBox.pos_x + ","+selectedGridBox.pos_y);
         });
     }
     

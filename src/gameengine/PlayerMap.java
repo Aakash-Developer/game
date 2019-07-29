@@ -48,7 +48,7 @@ public class PlayerMap implements IPlayer{
         mapView = new GridMap(mapModel, false, event -> {
 
             GridBox selectedGridBox = (GridBox) event.getSource();
-
+            
             if (this.mapView.TryToPlaceShipOnMap(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
                     event.getButton() == MouseButton.PRIMARY), 
                     selectedGridBox.pos_x, selectedGridBox.pos_y)) {

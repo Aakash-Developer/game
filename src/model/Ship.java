@@ -30,8 +30,8 @@ public class Ship extends Parent {
     
     /**
      * Constructor of a ship.
-     * @param length
-     * @param isVertical
+     * @param length ,integer
+     * @param isVertical , boolean
      */
     public Ship(int length, boolean isVertical) {
         

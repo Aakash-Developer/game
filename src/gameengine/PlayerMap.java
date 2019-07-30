@@ -1,6 +1,7 @@
 package gameengine;
 
 import api.Constant;
+import api.Constant.Turn;
 import api.IPlayer;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
@@ -61,7 +62,7 @@ public class PlayerMap implements IPlayer{
                     */
                     controller.mainWindowView.displayMessage(3);
                     PrettyPrint.shipsInModel("human", mapModel);
-
+                    this.controller.turn = Turn.Player1;
                 }
             }
         });

@@ -1,7 +1,7 @@
 package utils;
 
 /**
- *
+ * It is custom data type to represent a (X,Y) coordinate 
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung
@@ -22,6 +22,10 @@ public class Tuple{
     
     }
 
+    /**
+     * It servers to debug the use of Tuple coordinates
+     * @param tuple is a X,Y coordinate
+     */
     public static void printIt(Tuple tuple){
         
         if(tuple != null){

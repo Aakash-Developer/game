@@ -1,10 +1,10 @@
 package gameengine;
+
 import api.Constant;
 import api.Constant.Turn;
 import api.IPlayer;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -25,21 +25,24 @@ import static utils.Validate.IsCoordinateValid;
  */
 
 /**
-* It represents the enemy map from the player's point of view
-* in the current game.
+* The OponentMap class represents the enemy map from the main 
+* player's point of view
 */
 public class OponentMap implements IPlayer{
     
-    //private final Random _random = new Random();
     private final Controller controller;
     public long startTimeStamp;
     public long endTimeStamp;
     public ComputerPlayer searchEngine;
     public MapModel[][] mapModel;
     public GridMap mapView;
-    
     public final int[] ShipsSizeOrderedList = Constant.SHIPS_SIZE;
  
+    /**
+     * Initializes the OponenetMap of the game
+     * @param injectedController is the main controller in the MCV model
+     * of the application architecture
+     */
     public OponentMap(Controller injectedController){
         
         this.controller = injectedController;
@@ -54,6 +57,11 @@ public class OponentMap implements IPlayer{
         initialize();
     }
 
+    /**
+     * This method initializes the event handler that the controller
+     * will use to interchange data between the view and the controller
+     * in an MCV model
+     */
     private void initialize() {
         
         mapView = new GridMap(this.mapModel, true, (MouseEvent event) -> {
@@ -112,6 +120,10 @@ public class OponentMap implements IPlayer{
         });
     }
     
+    /**
+     * The placeShipsRandomly method is use to automate 
+     * the positioning of ships for the AI/Computer player
+     */
     public void placeShipsRandomly() {
         
         int numOfShips = ShipsSizeOrderedList.length;
@@ -139,7 +151,12 @@ public class OponentMap implements IPlayer{
                          ThreadLocalRandom.current().nextInt(0, Constant.GRID_SIZE + 1));
     }
        
-    
+    /**
+     * The computerMove method is used to coordinate the AI/
+     * Computer next movement. It uses the view for input , calculate 
+     * the next movement using the model and return instruct the 
+     * view to update accordingly
+     */
     public void computerMove() {
         
         while (this.controller.computerTurn) {
@@ -179,6 +196,12 @@ public class OponentMap implements IPlayer{
         startTimeStamp = System.currentTimeMillis();
     }
     
+    /**
+     * It calculate the salvo available until the next turn.
+     * @param inputArr the number of tries the player have 
+     * when the salvo variation is active.
+     * @return 
+     */
     private boolean checkNextMove(boolean[] inputArr){
         for(int i=0;i<inputArr.length;i++){
             if(inputArr[i]){

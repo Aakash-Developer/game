@@ -4,7 +4,7 @@ import javafx.scene.Parent;
 
 
 /**
- *
+ * It represents the ship in the game.
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung
@@ -12,8 +12,6 @@ import javafx.scene.Parent;
  * @author Aakash Ahuja
  * @author Pulkit Wadhwa
  */
-
-
 public class Ship extends Parent {
     
     /**

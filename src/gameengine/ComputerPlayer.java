@@ -17,8 +17,8 @@ import utils.Tuple;
 import static utils.Validate.IsCoordinateValid;
 
 /**
- * ComputerPlayer class. Create an AI player capable of
- * generating the movement to play battleship
+ * The ComputerPlayer class creates an AI player capable of
+ * generating movement to play battleship
  * @author Team 4
  * @author Zbigniew Ivan Angelus
  * @author Chen-Fang Chung
@@ -36,9 +36,12 @@ public class ComputerPlayer {
     boolean left,right,up,down;
     int index = 0;
     List<Tuple> list;
-
     private final MapModel[][] mapModel;
     
+    /**
+     * This is the constructor of a Computer/enemy player
+     * @param mapModel Represent the information/model of the enemy map
+     */
     public ComputerPlayer(MapModel[][] mapModel){
     
         this.mapModel = mapModel;
@@ -56,8 +59,9 @@ public class ComputerPlayer {
     }
 
     /**
-     * Calculate based on a predefine algorithm the next movement of the AI
-     * @return Tuple with the coordinate of the next movement
+     * This method calculates based on a predefine algorithm 
+     * the next movement of the AI
+     * @return Tuple or coordinates of the next movement
      */
     public Tuple getNextComputerMove(){
 
@@ -127,10 +131,8 @@ public class ComputerPlayer {
 
             switch(processState){
                 case Initial:
-                    
 //                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
 //                    index++;
-                    
                     processState = ProcessState.Random;
                     continue;
                 case Up:
@@ -155,11 +157,9 @@ public class ComputerPlayer {
                         nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
                     }
                     break;
-                case Random:
-                    
+                case Random:          
 //                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
 //                    index++;
-                    
                     nextPosition = new Tuple(
                             ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
                             ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
@@ -230,6 +230,10 @@ public class ComputerPlayer {
         }
     }
 
+    /**
+     * This method is used to seed the enemy map with predefine values
+     * @return List<Tuple> List of pre-defined coordinates
+     */
     private List<Tuple> GetTestSample() {
               
         List<Tuple> coordinates = new ArrayList<Tuple>() { 

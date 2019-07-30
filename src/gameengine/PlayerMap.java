@@ -14,10 +14,8 @@ import utils.Tuple;
 /**
  * This class is "only" a helper of the controller 
  * to manage the MODEL and VIEW of a player in a single class
- * 
- * This class is not a MODEL nor a VIEW but it contains both.
- * 
- * @author zange
+ * This class is wrapper to contain the view and model to
+ * ease the keeping of data
  */
 public class PlayerMap implements IPlayer{
 
@@ -29,6 +27,10 @@ public class PlayerMap implements IPlayer{
     public MapModel[][] mapModel;
     public GridMap mapView;
     
+    /**
+     * Initializes the PlayerMap class
+     * @param injectedController this is the controller in the MVC model
+     */
     public PlayerMap(Controller injectedController){
         
         this.controller = injectedController;
@@ -44,6 +46,11 @@ public class PlayerMap implements IPlayer{
     }
     
 
+    /**
+     * Creates the event handler of the player's map to interchange 
+     * data between controller and view in a MVC architecture.
+     * @param mapModel it the data/model of the current player
+     */
     private void initialize(MapModel[][] mapModel) {
         
         mapView = new GridMap(mapModel, false, event -> {

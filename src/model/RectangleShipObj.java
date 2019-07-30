@@ -1,4 +1,3 @@
-
 package model;
 
 
@@ -10,9 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+
 /**
- *
- * @author zange
+ * It keeps the behavior of a rectangle when 
+ * it changes position , vertical/horizontal
+ * @author Team 4
  */
 public class RectangleShipObj extends Rectangle {
 
@@ -51,12 +52,6 @@ public class RectangleShipObj extends Rectangle {
     public void InvalidState(){
         this.setFill(Color.RED);
 
-        
-//        timeline =       
-//                new Timeline(new KeyFrame(Duration.seconds(0.3), evt -> this.setVisible(false)),
-//                new KeyFrame(Duration.seconds(0.1),  evt -> this.setVisible(true)));
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
        
     }
 }

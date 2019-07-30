@@ -66,8 +66,8 @@ public class PlayerMap implements IPlayer{
             }
         });
     }
-    
-    
+     
+    /*
     public void computerPlaceShipsAutomatically() {
         
         int numOfShips = ShipsSizeOrderedList.length;
@@ -86,7 +86,7 @@ public class PlayerMap implements IPlayer{
         controller.oponentView.applyModelToView();
         controller.oponentView.finishIni = true;
     }
-    
+    */
     
     @Override
     public Tuple NextMove() {

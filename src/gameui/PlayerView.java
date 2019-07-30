@@ -373,7 +373,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -402,7 +402,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -450,7 +450,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -477,7 +477,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -525,7 +525,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -552,7 +552,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -600,7 +600,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -627,7 +627,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }
@@ -676,7 +676,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }else if(Constant.gridCellNum==12){
@@ -703,7 +703,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        controller.player.computerPlaceShipsAutomatically();
+//                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
             }

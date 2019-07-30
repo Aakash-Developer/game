@@ -2,6 +2,7 @@
 package gameui;
 
 import api.Constant;
+import api.Constant.Turn;
 import api.IController;
 import gameengine.Controller;
 import java.text.DateFormat;
@@ -56,7 +57,7 @@ public class PlayerView{
     Controller controller;
     GridMap playerMapView;
     GridMap computerMapView;
-    Button startButton,exitButton; //,loadGameButton,saveGameButton;
+    Button startButton,exitButton,loadGameButton,saveGameButton;
     public String userName;
     public Text updatableTextBox;
     public CheckBox checkBox1;
@@ -192,10 +193,10 @@ public class PlayerView{
         startButton.setWrapText(true);
         exitButton = new Button("Leave the Game");
         exitButton.setWrapText(true);
-        //loadGameButton = new Button("Load A Game");
-        //loadGameButton.setWrapText(true);
-        //saveGameButton = new Button("Save the Game");
-        //saveGameButton.setWrapText(true);
+        loadGameButton = new Button("Load A Game");
+        loadGameButton.setWrapText(true);
+        saveGameButton = new Button("Save the Game");
+        saveGameButton.setWrapText(true);
         startButton.setOnAction(actionEvent -> {
         
             try {
@@ -211,8 +212,8 @@ public class PlayerView{
         
         // Setting the message area in the main game waindow
         HBox messageArea = new HBox(3);
-        messageArea.getChildren().addAll(startButton,exitButton);
-        //messageArea.getChildren().addAll(startButton,exitButton,loadGameButton,saveGameButton);
+        //messageArea.getChildren().addAll(startButton,exitButton);
+        messageArea.getChildren().addAll(startButton,exitButton,loadGameButton,saveGameButton);
         root.setBottom(messageArea);
         // Setting the grid maps area in the main game waindow
         VBox mapGridsArea = new VBox(20, computerMapView, playerMapView);
@@ -373,6 +374,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+                        this.controller.turn = Turn.Player1;
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }

@@ -19,9 +19,6 @@ import javafx.stage.Stage;
  * @author Pulkit Wadhwa
  */
 
-
-
-
 public class Battleship extends Application {
    
     public static int gridCellNum = 10;
@@ -30,20 +27,6 @@ public class Battleship extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         primaryStage.setTitle("Battleship Game: Player VS Computer");
-        //ComputerPlayer ai = new ComputerPlayer(gridCellNum);
-        
-        //IController controller = new Controller();
-        
-        
-//        MainWindow main = new MainWindow((IPlayer) ai);
-//        Scene scene = new Scene(main.generateGameScene(primaryStage));
-//        primaryStage.setScene(scene);
-//        primaryStage.setResizable(false);
-//        primaryStage.show();
-        
-        
-        
-        //entry point creates a new controller for every new game
         Controller mainController = new Controller();
         Scene scene = new Scene(mainController.mainWindowView.generateGameScene(primaryStage));
         primaryStage.setScene(scene);
@@ -51,7 +34,6 @@ public class Battleship extends Application {
         primaryStage.show();
     }
     
-
     /**
      * Main method, starting point of this application.
      * @param args the command line arguments

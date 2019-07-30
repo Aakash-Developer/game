@@ -9,6 +9,10 @@ import api.IPlayerView;
 import gameui.GridMap;
 import gameui.PlayerView;
 
+/**
+* Controller in an MVC architecture. It is responsible of 
+* coordinating the view and model updates
+*/
 public class Controller implements IController
 { 
     IPlayer p1;
@@ -28,6 +32,9 @@ public class Controller implements IController
     public Turn turn;
     public ComputerPlayer ai;
     
+    /**
+    * Initializes one controller per game
+    */
     public Controller(){
    
         this.turn = Turn.None;

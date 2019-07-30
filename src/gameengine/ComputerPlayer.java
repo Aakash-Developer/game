@@ -17,8 +17,14 @@ import utils.Tuple;
 import static utils.Validate.IsCoordinateValid;
 
 /**
- *
- * @author zange
+ * ComputerPlayer class. Create an AI player capable of
+ * generating the movement to play battleship
+ * @author Team 4
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
  */
 public class ComputerPlayer {
     
@@ -49,6 +55,10 @@ public class ComputerPlayer {
         list = GetTestSample();
     }
 
+    /**
+     * Calculate based on a predefine algorithm the next movement of the AI
+     * @return Tuple with the coordinate of the next movement
+     */
     public Tuple getNextComputerMove(){
 
         if(this.prevPosition != null){ //Determine next action from previous move
@@ -118,11 +128,11 @@ public class ComputerPlayer {
             switch(processState){
                 case Initial:
                     
-                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
-                    index++;
+//                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+//                    index++;
                     
                     processState = ProcessState.Random;
-                    break;
+                    continue;
                 case Up:
                     nextPosition = new Tuple(this.prevPosition.t1, this.prevPosition.t2 + 1);
                     break;
@@ -147,12 +157,12 @@ public class ComputerPlayer {
                     break;
                 case Random:
                     
-                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
-                    index++;
+//                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+//                    index++;
                     
-//                    nextPosition = new Tuple(
-//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
-//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
+                    nextPosition = new Tuple(
+                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
+                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
                     break;
                 default:
                     break;     

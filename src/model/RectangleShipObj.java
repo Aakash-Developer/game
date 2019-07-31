@@ -21,7 +21,7 @@ public class RectangleShipObj extends Rectangle {
     private double rotateState = 0;
     public boolean isVertical = true;
     Timeline timeline;
-    
+
     public RectangleShipObj(int x, int y, Color color)
     {
         super(x, y, color);
@@ -46,12 +46,9 @@ public class RectangleShipObj extends Rectangle {
     }
     public void ValidState(){
         this.setFill(Color.GREENYELLOW);
-//        timeline.stop();
     }
     
     public void InvalidState(){
         this.setFill(Color.RED);
-
-       
     }
 }

@@ -3,6 +3,8 @@ package gameui;
 
 import api.Constant;
 import gameengine.Controller;
+import gameui.GridMap.GridBox;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +47,7 @@ public class PlayerView{
     RectangleShipObj three1,three2, four, five;
     Bounds b1;
     Bounds b2;
-    Bounds rp_bound;
+    Bounds playerMapBounds;
     
     Controller controller;
     GridMap playerMapView;
@@ -254,8 +256,10 @@ public class PlayerView{
         });
         //System.out.print("userName: "+userName);
         
-        CreateRectangles();
-        root.getChildren().addAll(two,three1,three2, four, five);
+//        CreateRectangles();
+//        root.getChildren().addAll(two,three1,three2, four, five);
+        
+        root.getChildren().addAll(dragableObjs());
         
         return root;   
     }
@@ -319,6 +323,195 @@ public class PlayerView{
         }
     }
     
+    /*
+    private void CreateShipsToDrag1(){
+        
+        two = new RectangleB(25,25*2,Color.RED);
+        two.setCursor(Cursor.HAND);
+        //two.setCursor(Cursor.MOVE);
+        two.setTranslateX(25);
+        two.setTranslateY(25);
+        two.setOnMousePressed(rectangleOnMousePressedEventHandler);
+        two.setOnMouseDragged(rectangleOnMouseDraggedEventHandler);
+        
+        two.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> {
+            Node target = (Node)e.getTarget() ;
+            
+            if (e.getButton() == MouseButton.PRIMARY) {
+                System.out.println("primary button clicked");
+            } 
+            else if (e.getButton() == MouseButton.SECONDARY) {
+                System.out.println("secondary button clicked");
+                two.ChangeState();
+            }
+            
+            RectangleB r = ((RectangleB)(e.getSource()));
+            Bounds rb = r.getBoundsInParent();
+            Bounds rb1 = r.getBoundsInLocal();
+            
+            System.out.println(rb.toString());
+            System.out.println(rp_bound.toString());
+            
+            if(rp_bound.contains(rb)){
+                r.ValidState();
+                System.out.print("in");
+            }
+            else{
+                r.InvalidState();
+                System.out.print("out");
+            }
+        });
+    }
+    */
+    
+    private ArrayList<DragableShip> dragableObjs(){
+        
+        ArrayList<DragableShip> ships = new ArrayList();
+        
+        //size 2
+        DragableShip dragableShip = new DragableShip(16,(20*2-4),Color.RED, 2);
+        dragableShip.setTranslateX(10);
+        dragableShip.setTranslateY(250);
+        ships.add(CreateShipToDrag(dragableShip));
+        
+        //size 3
+        dragableShip = new DragableShip(16,(20*3-4),Color.RED, 3);
+        dragableShip.setTranslateX(30);
+        dragableShip.setTranslateY(250);
+        ships.add(CreateShipToDrag(dragableShip));
+
+        return ships;
+    }
+
+    private DragableShip CreateShipToDrag(DragableShip dragableShip){
+
+        dragableShip.setCursor(Cursor.HAND);
+        dragableShip.setOnMousePressed(rectangleOnMousePressedEventHandler);
+        dragableShip.setOnMouseDragged(rectangleOnMouseDraggedEventHandler);
+        dragableShip.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) -> 
+        {
+            Node target = (Node)e.getTarget() ;
+            
+            if (e.getButton() == MouseButton.SECONDARY) {
+                dragableShip.ChangeState();
+            }
+            
+            DragableShip r = ((DragableShip)(e.getSource()));
+            Bounds rb = r.getBoundsInParent();
+            
+            
+            Bounds b2 = r.getBoundsInLocal();
+            double maxX = b2.getMaxX();
+            double minX = b2.getMinX();
+            double maxY = b2.getMaxY();
+            double minY = b2.getMinY();
+            System.out.print(maxX+","+minX+","+maxY+","+minY);
+            System.out.println();
+            
+            for(int x=0;x<1;x++){
+                for(int y=0;y<2;y++){
+                    
+//                    if(this.playerMapView.getGridBoxByCoordinate(x, y).getBoundsInParent().intersects(b2)){
+//                        System.out.println(x+","+y);
+//                    }
+                    
+                    Bounds a = this.playerMapView.getGridBoxByCoordinate(x, y).getBoundsInParent();
+                    maxX = a.getMaxX();
+                    minX = a.getMinX();
+                    maxY = a.getMaxY();
+                    minY = a.getMinY();
+                    System.out.print(maxX+","+minX+","+maxY+","+minY);
+                    System.out.println();
+                }  
+            }
+            
+            
+
+            
+            
+//            playerMapBounds = playerMapView.getBoundsInLocal();
+//             maxX = playerMapBounds.getMaxX();
+//             minX = playerMapBounds.getMinX();
+//             maxY = playerMapBounds.getMaxY();
+//             minY = playerMapBounds.getMinY();
+//            System.out.print(maxX+","+minX+","+maxY+","+minY);
+//            System.out.println();
+//            
+//            Bounds playerMapBounds1 = playerMapView.getBoundsInParent();
+//            maxX = playerMapBounds1.getMaxX();
+//            minX = playerMapBounds1.getMinX();
+//            maxY = playerMapBounds1.getMaxY();
+//            minY = playerMapBounds1.getMinY();
+//            System.out.print(maxX+","+minX+","+maxY+","+minY);
+//            System.out.println();
+//            
+//            Bounds playerMapBounds2 = playerMapView.getLayoutBounds();
+//            maxX = playerMapBounds2.getMaxX();
+//            minX = playerMapBounds2.getMinX();
+//            maxY = playerMapBounds2.getMaxY();
+//            minY = playerMapBounds2.getMinY();
+//            System.out.print(maxX+","+minX+","+maxY+","+minY);
+//            System.out.println();
+//            
+//            Scene playerMapBounds3 = playerMapView.getScene();
+//            maxX = playerMapBounds3.getX();
+//            minX = playerMapBounds3.getY();
+//            System.out.print(maxX+","+minX);
+//            System.out.println();
+//            
+            
+            double sence_X = rb.getMinX();
+            double sence_Y = rb.getMinY();
+            double sence_sX = r.getScene().getX();
+            double sence_sY = r.getScene().getY();
+            
+            if(Constant.GRID_SIZE==10)
+            {
+                if(dragableShip.isVertical)
+                {
+                    if(sence_X>356 && sence_X<(567-15) && sence_Y>443 && sence_Y < (650-35))
+                    {
+                        r.ValidState();
+                        //System.out.println("in-->");
+                        //System.out.println("box_x: "+(int)((sence_X-345)/21));
+                        //System.out.println("box_y: "+(int)((sence_Y-443)/21));
+                    }
+                    else{
+                        r.InvalidState();
+                        //System.out.println("out-->");
+                    }
+                }else{
+                    if(sence_X>356 && sence_X<(567-35) && sence_Y>443 && sence_Y < (650-15)){
+                        r.ValidState();
+                    }
+                    else{
+                        r.InvalidState();
+                    }
+                }
+
+                
+//                if (this.playerMapView.TryToPlaceShipOnMap(
+//                        new Ship(controller.player.ShipsSizeOrderedList[controller.player.iniShipsToPlace-1], two.isVertical), 
+//                        (int)((sence_X-356)/21), (int)((sence_Y-443)/21))) 
+//                {
+//                    //System.out.println("Place ship at: "+computerSelectedGridBox.abs_pos_x+", "+computerSelectedGridBox.abs_pos_y);
+//                    if (--controller.player.iniShipsToPlace == 0) {
+//                        /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
+//                                + "             Player's move             "));
+//                        */
+//                        controller.mainWindowView.displayMessage(3);
+////                        controller.player.computerPlaceShipsAutomatically();
+//                    }
+//                }
+                
+                
+            }
+        });
+        
+        return dragableShip;
+    }
+    
+    
     /**
      * Create the basic visual units of squares that conforms the 
      * Player's map
@@ -343,7 +536,7 @@ public class PlayerView{
             
             RectangleShipObj r = ((RectangleShipObj)(e.getSource()));
             Bounds rb = r.getBoundsInParent();
-            rp_bound = playerMapView.getBoundsInLocal();
+            playerMapBounds = playerMapView.getBoundsInLocal();
             
             double sence_X = rb.getMinX();
             double sence_Y = rb.getMinY();
@@ -428,7 +621,7 @@ public class PlayerView{
             Node target = (Node)e.getTarget() ;
             RectangleShipObj r = ((RectangleShipObj)(e.getSource()));
             Bounds rb = r.getBoundsInParent();
-            rp_bound = playerMapView.getBoundsInLocal();
+            playerMapBounds = playerMapView.getBoundsInLocal();
             if (e.getButton() == MouseButton.SECONDARY) {
                 three1.ChangeState();
             }
@@ -503,7 +696,7 @@ public class PlayerView{
             Node target = (Node)e.getTarget() ;
             RectangleShipObj r = ((RectangleShipObj)(e.getSource()));
             Bounds rb = r.getBoundsInParent();
-            rp_bound = playerMapView.getBoundsInLocal();
+            playerMapBounds = playerMapView.getBoundsInLocal();
             if (e.getButton() == MouseButton.SECONDARY) {
                 three2.ChangeState();
             }
@@ -578,7 +771,7 @@ public class PlayerView{
             Node target = (Node)e.getTarget() ;
             RectangleShipObj r = ((RectangleShipObj)(e.getSource()));
             Bounds rb = r.getBoundsInParent();
-            rp_bound = playerMapView.getBoundsInLocal();
+            playerMapBounds = playerMapView.getBoundsInLocal();
             if (e.getButton() == MouseButton.SECONDARY) {
                 four.ChangeState();
             }
@@ -654,7 +847,7 @@ public class PlayerView{
             RectangleShipObj r = ((RectangleShipObj)(e.getSource()));
             Bounds rb = r.getBoundsInParent();
             System.out.println("!!-->"+rb.toString());
-            rp_bound = playerMapView.getBoundsInLocal();
+            playerMapBounds = playerMapView.getBoundsInLocal();
             if (e.getButton() == MouseButton.SECONDARY) {
                 five.ChangeState();
             }

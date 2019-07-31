@@ -34,9 +34,11 @@ public class ComputerPlayer {
     Tuple firstHit;
     int counterFirstHit;
     boolean left,right,up,down;
+    int exitCount;
     int index = 0;
     List<Tuple> list;
     private final MapModel[][] mapModel;
+    
     
     /**
      * This is the constructor of a Computer/enemy player
@@ -55,6 +57,7 @@ public class ComputerPlayer {
         up               = false;
         down             = false;
         
+        this.exitCount = 0;
         list = GetTestSample();
     }
 
@@ -128,7 +131,11 @@ public class ComputerPlayer {
         this.nextPosition = null; //initialize a new search
         
         while(this.nextPosition == null){
-
+            
+            if(exitCount++>Constant.GRID_SIZE*2){
+                processState = ProcessState.Random;
+            }
+            
             switch(processState){
                 case Initial:
 //                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
@@ -205,7 +212,7 @@ public class ComputerPlayer {
         this.prevPosition = this.nextPosition;
         
         printNextMove(processState);
-
+        this.exitCount = 0;
         return nextPosition;
     }
 

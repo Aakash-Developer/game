@@ -1,5 +1,8 @@
-package Test;
+//package Test;
 
+import gameengine.Controller;
+import gameengine.OponentMap;
+import gameengine.PlayerMap;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -28,7 +31,11 @@ public class PlayerMapTest {
 
 	@Test
 	public void testPlayerMap() {
-		
-		
+	    assertTrue("Is the player map Correct?", isPlayerMapCorrect());		
+	}
+        private boolean isPlayerMapCorrect() {
+            Controller injectedController = new Controller();
+            PlayerMap playerMap = new PlayerMap(injectedController);
+            return playerMap.mapModel[0].length == (injectedController.oponent.mapModel[0].length);
 	}
 }

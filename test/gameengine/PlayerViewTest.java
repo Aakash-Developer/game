@@ -1,5 +1,11 @@
-package Test;
+//package Test;
 
+import gameengine.Controller;
+import gameui.PlayerView;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -9,11 +15,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class PlayerViewTest {
-
+        
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
-
+               
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
@@ -25,10 +31,10 @@ public class PlayerViewTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        
 	@Test
 	public void testPlayerView() {
-		fail("Not yet implemented");
+            fail("Not yet implemented");
 	}
 
 	@Test
@@ -38,7 +44,7 @@ public class PlayerViewTest {
 
 	@Test
 	public void testDisplayMessage() {
-		fail("Not yet implemented");
+                fail("Not yet implemented");
 	}
 
 }

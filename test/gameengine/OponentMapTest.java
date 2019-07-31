@@ -1,4 +1,4 @@
-package Test;
+//package Test;
 
 import static org.junit.Assert.*;
 
@@ -40,19 +40,16 @@ public class OponentMapTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Ignore
+
 	@Test
 	public void testOponentMap() {
 		assertTrue("Is the oponent map Correct?", isOponentMapCorrect());
 	}
 
 	private boolean isOponentMapCorrect() {
-		Controller injectedController = null;
-		OponentMap op = new OponentMap(injectedController);
-		MapModel mp = new MapModel();
-		GridMap mapView;
-		MapModel[][] mapModel = new MapModel[Constant.GRID_SIZE][Constant.GRID_SIZE];
-		return false;
+            Controller injectedController = new Controller();
+            OponentMap opMap = new OponentMap(injectedController);
+            return opMap.mapModel[0].length == (injectedController.oponent.mapModel[0].length);
 	}
 
 	@Test

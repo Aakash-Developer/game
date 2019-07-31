@@ -1,4 +1,4 @@
-package Test;
+//package Test;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import api.Constant;
+import gameengine.Controller;
+import gameui.GridMap;
+import gameui.GridMap.GridBox;
 import model.MapModel;
 import model.Ship;
 
@@ -33,51 +36,82 @@ public class GridMapTest {
 
 	@Test
 	public void testGridMap() {
-		fail("Not yet implemented");
+            assertTrue("Is the grid map Correct?", isGridMapCorrect());
 	}
-
+        private boolean isGridMapCorrect() {
+            Controller injectedController = new Controller();
+            return injectedController.oponent.mapModel[0].length == (injectedController.player.mapModel[0].length);
+	}
+        
 	@Test
 	public void testTryToPlaceShipOnMap() {
-		assertTrue("Is ship placed on Map?", isShipPlacedOnMap());
+            assertTrue("Is ship placed on Map?", isShipPlacedOnMap());
 	}
 
 	private boolean isShipPlacedOnMap() {
-		Ship ship = new Ship(1, true);
-		int length = ship.length;
-		int x = 5;
-		int y = 4;
-		if (x > 0 && x < Constant.GRID_SIZE && y > 0 && y < Constant.GRID_SIZE) {
-			if (y < y + length) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-		if(ship.isVertical) {
-			for(int i = 0; i < y ; i++) {
-				MapModel[][] mapModel = new MapModel[4][4];
-				mapModel[i][x].SetAShip(ship);
-			}
-			
-			
-		}
-		return false;
+            Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, y, x);
+            /*
+            if (x > 0 && x < Constant.GRID_SIZE && y > 0 && y < Constant.GRID_SIZE) {
+            if (y < y + length) {
+            return false;
+            } else {
+            return true;
+            }
+            }
+            if(ship.isVertical) {
+            for(int i = 0; i < y ; i++) {
+            MapModel[][] mapModel = new MapModel[4][4];
+            mapModel[i][x].SetAShip(ship);
+            }
+            }
+             */
+            return injectedController.player.mapModel[y][x].space().equals("s");
 	}
 
 	@Test
 	public void testTryToPlaceShipOnModel() {
-		fail("Not yet implemented");
+            assertTrue("Is ship placed on Model?", isShipPlacedOnModel());
 	}
-
+        private boolean isShipPlacedOnModel() {
+            Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, y, x);
+            return injectedController.player.mapModel[y][x].space().equals("s");
+	}
 	@Test
 	public void testApplyModelToView() {
-		fail("Not yet implemented");
+            //System.out.println("TestResult14: " + isApplyModelToViewCorrect());
+            assertTrue("Is applyModelToView method correct?", isApplyModelToViewCorrect());
 	}
-
-	@Ignore
+        private boolean isApplyModelToViewCorrect() {
+            Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, x, y);
+            GridBox gridBoxInView = injectedController.playerView.getGridBoxByCoordinate(x, y);
+            
+            return gridBoxInView.shipInstance == injectedController.player.mapModel[x][y].ShipInstance;
+	}
+	//@Ignore
 	@Test
 	public void testGetGridBoxByCoordinate() {
-		fail("Not yet implemented");
+            assertTrue("Is getGridBoxByCoordinate method correct?", isGetGridBoxByCoordinateCorrect());
 	}
-
+        private boolean isGetGridBoxByCoordinateCorrect() {
+            Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, x, y);
+            GridBox gridBoxInView = injectedController.playerView.getGridBoxByCoordinate(5, 4);
+            
+            return gridBoxInView.shipInstance == injectedController.player.mapModel[x][y].ShipInstance;
+	}
 }

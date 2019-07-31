@@ -383,6 +383,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+                        this.controller.turn = Constant.Turn.Player1;
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
@@ -412,6 +413,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+                        this.controller.turn = Constant.Turn.Player1;
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }

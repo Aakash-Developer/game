@@ -21,8 +21,7 @@ public interface IBinding {
     /**
      * The VIEW calls this function when the user clicks the START button
      * The CONTROLLER receives the notification to prepare the model
-     * @param viewObject 
-     * @throws java.lang.Exception 
+     * @param viewObject is the player's view
      */
     void OnPlayerClicksStart(IPlayerView viewObject);  
     

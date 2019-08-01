@@ -2,17 +2,11 @@
 package gameui;
 
 import api.Constant;
-import api.Constant.Turn;
-import api.IController;
+
 import gameengine.Controller;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -24,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -36,14 +29,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.RectangleShipObj;
 import model.Ship;
+
+
 /**
- *
- * @author zange
+ * The PlayerView class draw the current player's game
+ * using JavaFX framework
+ * @author Team4
  */
-//public class PlayerView extends PlayerViewAbstract{
 public class PlayerView{
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
@@ -67,6 +61,9 @@ public class PlayerView{
     public double totalTime = 0;
     public int finalScore = 0;
     
+    /**
+     * Event handler for the mouse clicking on the maps
+     */
     EventHandler<MouseEvent> rectangleOnMousePressedEventHandler = 
         new EventHandler<MouseEvent>() {
  
@@ -81,6 +78,9 @@ public class PlayerView{
         }
     };
      
+    /**
+     * Event handler for the drag & drop operation
+     */
     EventHandler<MouseEvent> rectangleOnMouseDraggedEventHandler = 
         new EventHandler<MouseEvent>() {
  
@@ -95,17 +95,15 @@ public class PlayerView{
             ((Rectangle)(t.getSource())).setTranslateY(newTranslateY);
             
             //new added
-
-            
-            
         }
     };
     
-    /*public PlayerView(IController controller) {
-        super(controller);
-
-    }*/
     
+    /**
+     * Create the player's view
+     * @param injectedController Is the controller in the  MVC architecture 
+     * being used.
+     */
     public PlayerView(Controller injectedController){
         this.controller = injectedController;
         this.playerMapView = injectedController.playerView;
@@ -138,8 +136,8 @@ public class PlayerView{
     */
     /**
      * "generateGameScene" method creates main scene in the main window
-     * @param StageScene
-     * @return
+     * @param StageScene is the type use by JavaFX to render the view
+     * @return Parent The type used by JavaFx to keep the views to be rendered
      */
     public Parent generateGameScene(Stage StageScene){
         primaryStageObj = StageScene;
@@ -209,7 +207,12 @@ public class PlayerView{
         exitButton.setOnAction(actionEvent -> {
             System.exit(0);
         });
-        
+        loadGameButton.setOnAction(actionEvent -> {
+            System.out.println("Load a game button is clicked!!");
+        });
+        saveGameButton.setOnAction(actionEvent -> {
+            System.out.println("Save a game button is clicked!!");
+        });
         // Setting the message area in the main game waindow
         HBox messageArea = new HBox(3);
         //messageArea.getChildren().addAll(startButton,exitButton);
@@ -263,6 +266,10 @@ public class PlayerView{
         return root;   
     }
     
+    /**
+     * It restarts the game
+     * @throws Exception If the operation fails an exception is thrown.
+     */
     private void restart() throws Exception {
         Stage newPrimaryStage = new Stage();
         newPrimaryStage.setTitle("Battleship Game: Player VS Computer");
@@ -274,6 +281,10 @@ public class PlayerView{
         newPrimaryStage.show();
     }
     
+    /**
+     * It centralized the handling of messages across the application.
+     * @param messageType The type of message
+     */
     public void displayMessage(int messageType){
         switch (messageType){
             case 1:
@@ -314,6 +325,10 @@ public class PlayerView{
         }
     }
     
+    /**
+     * Create the basic visual units of squares that conforms the 
+     * Player's map
+     */
     private void CreateRectangles(){
        
         two = new RectangleShipObj(16,(20*2-4),Color.RED);
@@ -374,7 +389,9 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-                        this.controller.turn = Turn.Player1;
+
+                        this.controller.turn = Constant.Turn.Player1;
+
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
@@ -404,6 +421,7 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+                        this.controller.turn = Constant.Turn.Player1;
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }

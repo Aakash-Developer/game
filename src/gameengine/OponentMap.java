@@ -1,10 +1,10 @@
 package gameengine;
+
 import api.Constant;
 import api.Constant.Turn;
 import api.IPlayer;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -24,37 +24,25 @@ import static utils.Validate.IsCoordinateValid;
  * @author Pulkit Wadhwa
  */
 
+/**
+* The OponentMap class represents the enemy map from the main 
+* player's point of view
+*/
 public class OponentMap implements IPlayer{
     
-    //private final Random _random = new Random();
     private final Controller controller;
     public long startTimeStamp;
     public long endTimeStamp;
     public ComputerPlayer searchEngine;
     public MapModel[][] mapModel;
     public GridMap mapView;
-    
     public final int[] ShipsSizeOrderedList = Constant.SHIPS_SIZE;
-    /*
-    ProcessState processState;
-    Tuple nextPosition;
-    Tuple prevPosition;
-    Tuple firstHit;
-    int counterFirstHit;
-    boolean left,right,up,down;
-
-    
-    enum ProcessState {
-        Initial,
-        Random,
-        Left,
-        Right,
-        Up,
-        Down,
-        Repeat
-    }
-    */
-    
+ 
+    /**
+     * Initializes the OponenetMap of the game
+     * @param injectedController is the main controller in the MCV model
+     * of the application architecture
+     */
     public OponentMap(Controller injectedController){
         
         this.controller = injectedController;
@@ -66,20 +54,14 @@ public class OponentMap implements IPlayer{
             }
         }
         
-        /*
-        processState     = ProcessState.Initial;
-        nextPosition     = null;
-        prevPosition     = null;
-        firstHit         = null;
-        left             = false;
-        right            = false;
-        up               = false;
-        down             = false;
-        */
-        
         initialize();
     }
 
+    /**
+     * This method initializes the event handler that the controller
+     * will use to interchange data between the view and the controller
+     * in an MCV model
+     */
     private void initialize() {
         
         mapView = new GridMap(this.mapModel, true, (MouseEvent event) -> {
@@ -109,7 +91,7 @@ public class OponentMap implements IPlayer{
                     }
                      this.mapView.moveCounter++;         
 
-                     if(this.mapView.moveCounter >4){
+                     if(this.mapView.moveCounter >(controller.oponentView.shipsNumOnMap-1)){
                          controller.computerTurn = true;
                          this.mapView.moveCounter = 0;
                          computerMove();
@@ -138,6 +120,10 @@ public class OponentMap implements IPlayer{
         });
     }
     
+    /**
+     * The placeShipsRandomly method is use to automate 
+     * the positioning of ships for the AI/Computer player
+     */
     public void placeShipsRandomly() {
         
         int numOfShips = ShipsSizeOrderedList.length;
@@ -165,7 +151,12 @@ public class OponentMap implements IPlayer{
                          ThreadLocalRandom.current().nextInt(0, Constant.GRID_SIZE + 1));
     }
        
-    
+    /**
+     * The computerMove method is used to coordinate the AI/
+     * Computer next movement. It uses the view for input , calculate 
+     * the next movement using the model and return instruct the 
+     * view to update accordingly
+     */
     public void computerMove() {
         
         while (this.controller.computerTurn) {
@@ -184,7 +175,7 @@ public class OponentMap implements IPlayer{
                 controller.playerView.salvoMoveCheck[controller.playerView.moveCounter] = selectedGridBox.hitGridBox();
                 controller.playerView.moveCounter++;
                 
-                if(controller.playerView.moveCounter >4){
+                if(controller.playerView.moveCounter >(controller.oponentView.shipsNumOnMap-1)){
                     controller.playerView.moveCounter = 0;
                     controller.computerTurn = false;
                 }
@@ -205,6 +196,12 @@ public class OponentMap implements IPlayer{
         startTimeStamp = System.currentTimeMillis();
     }
     
+    /**
+     * It calculate the salvo available until the next turn.
+     * @param inputArr the number of tries the player have 
+     * when the salvo variation is active.
+     * @return 
+     */
     private boolean checkNextMove(boolean[] inputArr){
         for(int i=0;i<inputArr.length;i++){
             if(inputArr[i]){
@@ -213,172 +210,4 @@ public class OponentMap implements IPlayer{
         }
         return false;
     }
-    
-    
-    /*
-    public Tuple getNextComputerMove(){
-
-        PrettyPrint.uncoverInModel("move", mapModel);
-        if(this.prevPosition != null){ //Determine next action from previous move
-            
-            MapModel cell = mapModel[this.prevPosition.t1][this.prevPosition.t2];
-            
-            if(cell.IsUncover())
-            {
-                if(cell.IsSpaceEmpty()){ //change direction/cardinality
-                    
-                    switch(processState) { //search in oposite direction
-                        case Up:
-                            processState = ProcessState.Down;
-                            break;
-                        case Down:
-                            processState = ProcessState.Up;
-                            break;
-                        case Left:
-                            processState = ProcessState.Right;
-                            break;
-                        case Right:
-                            processState = ProcessState.Left;
-                            break;
-                        default:
-                            processState = ProcessState.Random;
-                            break;  
-                    }
-                }
-                else{   // ship is there , continue same direction
-                    
-                    if(!cell.ShipInstance.isAlive()){
-                        System.out.println("Dead ship!");
-                        processState = ProcessState.Initial;
-                    }
-                    
-                    switch(processState) { //Continue searching in the same direction 
-                        case Initial:  // first hit, change strategy
-                            processState    = ProcessState.Random;
-                            break;
-                        case Up:
-                            processState = ProcessState.Up;
-                            break;
-                        case Down:
-                            processState = ProcessState.Down;
-                            break;
-                        case Left:
-                            processState = ProcessState.Left;
-                            break;
-                        case Right:
-                            processState = ProcessState.Right;
-                            break;
-                        case Random:  // first hit, change strategy
-                            processState    = ProcessState.Right;
-                            break;
-                        default:
-                            processState = ProcessState.Random;
-                            break;  
-                    }
-                    
-                }
-                
-            }
-        }
-        
-        this.nextPosition = null; //initialize a new search
-        
-        while(this.nextPosition == null){
-
-            switch(processState){
-
-                case Initial:
-                    nextPosition = new Tuple(0,0);  //  TEST PURPOSE. TO BE REMOVED
-                    processState = ProcessState.Random;
-                    break;
-                case Up:
-                    nextPosition = new Tuple(this.prevPosition.t1, this.prevPosition.t2 + 1);
-                    break;
-                case Down:
-                    nextPosition = new Tuple(this.prevPosition.t1, this.prevPosition.t2 - 1);
-                    break;
-                case Left:
-                    this.left = true;
-                    nextPosition = new Tuple(this.prevPosition.t1 - 1, this.prevPosition.t2);
-                    break;
-                case Right:
-                    this.right = true;
-                    if(this.left){ //let it go right one step and change axis
-                        processState = ProcessState.Down;
-                        continue;
-                    }
-                    else{
-                        nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
-                    }
-                    break;
-                case Random:
-                    nextPosition = new Tuple(
-                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
-                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
-                    break;
-                default:
-
-                    break;     
-            }
-            
-            
-            if(!IsCoordinateValid(nextPosition)){ //coordinate out of range, change direction
-                
-                nextPosition = null;
-                
-                switch(processState) {
-                    case Up:
-                        processState = ProcessState.Down;
-                        break;
-                    case Down:
-                        processState = ProcessState.Up;
-                        break;
-                    case Left:
-                        processState = ProcessState.Right;
-                        break;
-                    case Right:
-                        processState = ProcessState.Left;
-                        break;
-                    default:
-                        processState = ProcessState.Random;
-                    break;  
-                }
-            }
-            else{
-                MapModel cell = mapModel[this.nextPosition.t1][this.nextPosition.t2];
-            
-                if(cell.IsUncover()){ //coordinate out of range, change direction
-                
-                    this.prevPosition = this.nextPosition;
-                    nextPosition = null;
-                }
-            }
-        }
-        
-        this.prevPosition = this.nextPosition;
-        
-        
-        switch(processState){
-            case Up:
-                System.out.println("Up:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
-                break;
-            case Down:
-                System.out.println("Down:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
-                break;
-            case Left:
-                System.out.println("Left:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
-                break;
-            case Right:
-                System.out.println("Right:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
-                break;
-            case Random:
-                System.out.println("Random:"+this.nextPosition.t1 + ","+this.nextPosition.t2);
-                break;
-        }
-        
-        
-        return nextPosition;
-    }
-    */
-
 }

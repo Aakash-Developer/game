@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gameengine;
 
 import api.Constant;
 import api.Constant.ProcessState;
+import api.Constant.Space;
+import api.Constant.Uncover;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,8 +13,14 @@ import utils.Tuple;
 import static utils.Validate.IsCoordinateValid;
 
 /**
- *
- * @author zange
+ * The ComputerPlayer class creates an AI player capable of
+ * generating movement to play battleship
+ * @author Team 4
+ * @author Zbigniew Ivan Angelus
+ * @author Chen-Fang Chung
+ * @author Ayush Dave
+ * @author Aakash Ahuja
+ * @author Pulkit Wadhwa
  */
 public class ComputerPlayer {
     
@@ -28,11 +30,18 @@ public class ComputerPlayer {
     Tuple firstHit;
     int counterFirstHit;
     boolean left,right,up,down;
+    int exitCount;
     int index = 0;
     List<Tuple> list;
-
+    int nextX;
+    int nextY;
     private final MapModel[][] mapModel;
     
+    
+    /**
+     * This is the constructor of a Computer/enemy player
+     * @param mapModel Represent the information/model of the enemy map
+     */
     public ComputerPlayer(MapModel[][] mapModel){
     
         this.mapModel = mapModel;
@@ -46,9 +55,18 @@ public class ComputerPlayer {
         up               = false;
         down             = false;
         
+        this.exitCount = 0;
+        int seed = 5;
+        nextX = 0;
+        nextY = seed;
         list = GetTestSample();
     }
 
+    /**
+     * This method calculates based on a predefine algorithm 
+     * the next movement of the AI
+     * @return Tuple or coordinates of the next movement
+     */
     public Tuple getNextComputerMove(){
 
         if(this.prevPosition != null){ //Determine next action from previous move
@@ -114,15 +132,18 @@ public class ComputerPlayer {
         this.nextPosition = null; //initialize a new search
         
         while(this.nextPosition == null){
-
+            
+            if(exitCount++>Constant.GRID_SIZE){
+                processState = ProcessState.GoEmpty;
+            }
+            
             switch(processState){
                 case Initial:
                     
-                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
-                    index++;
-                    
+//                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+//                    index++;
                     processState = ProcessState.Random;
-                    break;
+                    continue;
                 case Up:
                     nextPosition = new Tuple(this.prevPosition.t1, this.prevPosition.t2 + 1);
                     break;
@@ -145,14 +166,15 @@ public class ComputerPlayer {
                         nextPosition = new Tuple(this.prevPosition.t1 + 1, this.prevPosition.t2);
                     }
                     break;
-                case Random:
-                    
-                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
-                    index++;
-                    
-//                    nextPosition = new Tuple(
-//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
-//                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
+                case Random:          
+//                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
+//                    index++;
+                    nextPosition = new Tuple(
+                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
+                            ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
+                    break;
+                case GoEmpty:      
+                    nextPosition = FindEmptyPosition();
                     break;
                 default:
                     break;     
@@ -195,7 +217,7 @@ public class ComputerPlayer {
         this.prevPosition = this.nextPosition;
         
         printNextMove(processState);
-
+        this.exitCount = 0;
         return nextPosition;
     }
 
@@ -220,6 +242,26 @@ public class ComputerPlayer {
         }
     }
 
+    private Tuple FindEmptyPosition(){
+        
+        System.out.println("FndEmptyPos");
+        for(int x = 0; x<Constant.GRID_SIZE; x++){
+               
+            for(int y = 0; y<Constant.GRID_SIZE; y++){
+              
+               if(mapModel[x][y].uncover == Uncover.No)
+               {
+                       return new Tuple(x,y);
+               } 
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * This method is used to seed the enemy map with predefine values
+     * @return List<Tuple> List of pre-defined coordinates
+     */
     private List<Tuple> GetTestSample() {
               
         List<Tuple> coordinates = new ArrayList<Tuple>() { 

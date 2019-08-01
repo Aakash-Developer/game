@@ -8,6 +8,8 @@ package gameengine;
 
 import api.Constant;
 import api.Constant.ProcessState;
+import api.Constant.Space;
+import api.Constant.Uncover;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -37,6 +39,8 @@ public class ComputerPlayer {
     int exitCount;
     int index = 0;
     List<Tuple> list;
+    int nextX;
+    int nextY;
     private final MapModel[][] mapModel;
     
     
@@ -58,6 +62,9 @@ public class ComputerPlayer {
         down             = false;
         
         this.exitCount = 0;
+        int seed = 5;
+        nextX = 0;
+        nextY = seed;
         list = GetTestSample();
     }
 
@@ -132,12 +139,13 @@ public class ComputerPlayer {
         
         while(this.nextPosition == null){
             
-            if(exitCount++>Constant.GRID_SIZE*2){
-                processState = ProcessState.Random;
+            if(exitCount++>Constant.GRID_SIZE){
+                processState = ProcessState.GoEmpty;
             }
             
             switch(processState){
                 case Initial:
+                    
 //                    nextPosition = list.get(index);   //  TEST PURPOSE. TO BE REMOVED
 //                    index++;
                     processState = ProcessState.Random;
@@ -170,6 +178,9 @@ public class ComputerPlayer {
                     nextPosition = new Tuple(
                             ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1), 
                             ThreadLocalRandom.current().nextInt(1, Constant.GRID_SIZE + 1));
+                    break;
+                case GoEmpty:      
+                    nextPosition = FindEmptyPosition();
                     break;
                 default:
                     break;     
@@ -237,6 +248,22 @@ public class ComputerPlayer {
         }
     }
 
+    private Tuple FindEmptyPosition(){
+        
+        System.out.println("FndEmptyPos");
+        for(int x = 0; x<Constant.GRID_SIZE; x++){
+               
+            for(int y = 0; y<Constant.GRID_SIZE; y++){
+              
+               if(mapModel[x][y].uncover == Uncover.No)
+               {
+                       return new Tuple(x,y);
+               } 
+            }
+        }
+        return null;
+    }
+    
     /**
      * This method is used to seed the enemy map with predefine values
      * @return List<Tuple> List of pre-defined coordinates

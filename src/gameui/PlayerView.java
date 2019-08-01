@@ -2,6 +2,7 @@
 package gameui;
 
 import api.Constant;
+
 import gameengine.Controller;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -388,7 +389,9 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+
                         this.controller.turn = Constant.Turn.Player1;
+
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }

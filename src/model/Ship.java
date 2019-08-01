@@ -24,7 +24,7 @@ public class Ship extends Parent {
      * This parameter indicates the capacity of getting hit for a placed ship.
      */
     public final int length;    
-    private int remainingLength;
+    public int remainingLength;
     
     /**
      * Constructor of a ship.

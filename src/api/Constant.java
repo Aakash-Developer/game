@@ -43,7 +43,8 @@ public class Constant {
         Right,
         Up,
         Down,
-        Repeat
+        Repeat,
+        GoEmpty
     }
         
     public enum ShootingMapStatus{

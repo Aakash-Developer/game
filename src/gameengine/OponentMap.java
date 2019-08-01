@@ -91,7 +91,7 @@ public class OponentMap implements IPlayer{
                     }
                      this.mapView.moveCounter++;         
 
-                     if(this.mapView.moveCounter >4){
+                     if(this.mapView.moveCounter >(controller.oponentView.shipsNumOnMap-1)){
                          controller.computerTurn = true;
                          this.mapView.moveCounter = 0;
                          computerMove();
@@ -175,7 +175,7 @@ public class OponentMap implements IPlayer{
                 controller.playerView.salvoMoveCheck[controller.playerView.moveCounter] = selectedGridBox.hitGridBox();
                 controller.playerView.moveCounter++;
                 
-                if(controller.playerView.moveCounter >4){
+                if(controller.playerView.moveCounter >(controller.oponentView.shipsNumOnMap-1)){
                     controller.playerView.moveCounter = 0;
                     controller.computerTurn = false;
                 }

@@ -31,7 +31,9 @@ public class RectangleShipObjTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        /**
+         * Test of a RectangleShipObj is properly set in RectangleShipObj class.
+         */
 	@Test
 	public void testRectangleShipObj() {
 		RectangleShipObj r = new RectangleShipObj(1, 1,null);
@@ -40,7 +42,9 @@ public class RectangleShipObjTest {
 		r.setRotate(0);
 		r.getRotate();
 	}
-
+        /**
+         * Test of ChangeState method in RectangleShipObj class.
+         */
 	@Test
 	public void testChangeState() {
 		assertTrue("Is the change correct ? ", isChangeCorrect());
@@ -58,7 +62,9 @@ public class RectangleShipObjTest {
 		}
 		return false;
 	}
-
+        /**
+         * Test of ValidState method in RectangleShipObj class.
+         */
 	@Test
 	public void testValidState() {
 		assertTrue("Is it a valid State?" ,isValidState());
@@ -73,7 +79,9 @@ public class RectangleShipObjTest {
 		}else
 			return true;
 	}
-
+        /**
+         * Test of InvalidState method in RectangleShipObj class.
+         */
 	@Test
 	public void testInvalidState() {
 		assertTrue("Is it an Invalid State?" ,isInvalidState());		

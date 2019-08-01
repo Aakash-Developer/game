@@ -40,7 +40,9 @@ public class OponentMapTest {
 	public void tearDown() throws Exception {
 	}
 
-
+        /**
+         * Test of properly setting of a oponent map  in OponentMap class
+         */
 	@Test
 	public void testOponentMap() {
 		assertTrue("Is the oponent map Correct?", isOponentMapCorrect());
@@ -51,7 +53,9 @@ public class OponentMapTest {
             OponentMap opMap = new OponentMap(injectedController);
             return opMap.mapModel[0].length == (injectedController.oponent.mapModel[0].length);
 	}
-
+        /**
+         * Test of PlaceShipsRandomly method in OponentMap class
+         */
 	@Test
 	public void testPlaceShipsRandomly() {
 		assertTrue("Are ships placed Randomly? ", isPlacedRandomly());
@@ -75,7 +79,9 @@ public class OponentMapTest {
 		return false;
 	}
 
-	
+	/**
+         * Test of NextMove method in OponentMap class
+         */
 	@Test
 	public void testNextMove() {
 		OponentMap op = new OponentMap(null);
@@ -89,7 +95,9 @@ public class OponentMapTest {
 		return true;
 	}
 
-	
+	/**
+         * Test of ComputerMove method in OponentMap class
+         */
 	@Test
 	public void testComputerMove() {
 		assertTrue("Is computer move correct? " ,isNextComputerMoveCorrect());
@@ -113,5 +121,22 @@ public class OponentMapTest {
 		}
 		return false;
 	}
-
+        /**
+         * Test of calculation of the human winner in OponentMap class
+         */
+        @Test
+	public void testShipNumForHumanWinner() {
+	    Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, x, y);
+            for(int i=0;i<5;i++){
+                injectedController.player.mapView.shipsNumOnMap--;
+            }
+            int expShipNum = 0;
+            int resultShipNum = injectedController.player.mapView.shipsNumOnMap;
+            System.out.println("resultShipNum: " + resultShipNum);
+            assertEquals(expShipNum, resultShipNum);		
+	}
 }

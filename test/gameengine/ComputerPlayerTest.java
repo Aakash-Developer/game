@@ -33,7 +33,9 @@ public class ComputerPlayerTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        /**
+         * Test if a computer player working properly in ComputerPlayer class.
+         */
 	@Test
 	public void testComputerPlayer() {
 		assertTrue("Is computer player working properly?" ,isComputerPlayerCorrect());
@@ -49,6 +51,9 @@ public class ComputerPlayerTest {
 		}
 		return true;
 	}
+        /**
+         * Test of GetNextComputerMove method in ComputerPlayer class.
+         */
 	@Test
 	public void testGetNextComputerMove() {
 		assertTrue("Is the nextMove valid or not?" ,isGetNextMoveValid());

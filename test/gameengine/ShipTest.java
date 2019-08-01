@@ -28,7 +28,9 @@ public class ShipTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+	/**
+         * Test of shipPlaced method in Ship class.
+         */
 	@Test
 	public void testShip() {
 		Assert.assertTrue("Is Ship Placed?", isShipPlaced());
@@ -41,7 +43,9 @@ public class ShipTest {
 			return false;
 		return true;
 	}
-
+        /**
+         * Test of isAlive method in Ship class.
+         */
 	@Test
 	public void testIsAlive() {
 		Assert.assertTrue("Is Ship Alive?", isShipAlive());
@@ -55,7 +59,9 @@ public class ShipTest {
 			return true;
 		return false;
 	}
-
+        /**
+         * Test of gotHit method in Ship class.
+         */
 	@Test
 	public void testGotHit() {
 		Assert.assertTrue("Is Ship got hit?", isShipGotHit());

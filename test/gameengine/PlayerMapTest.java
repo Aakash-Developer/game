@@ -3,6 +3,7 @@
 import gameengine.Controller;
 import gameengine.OponentMap;
 import gameengine.PlayerMap;
+import model.Ship;
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -28,7 +29,9 @@ public class PlayerMapTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        /**
+         * Test of properly setting of a player map  in PlayerMap class
+         */
 	@Test
 	public void testPlayerMap() {
 	    assertTrue("Is the player map Correct?", isPlayerMapCorrect());		
@@ -37,5 +40,23 @@ public class PlayerMapTest {
             Controller injectedController = new Controller();
             PlayerMap playerMap = new PlayerMap(injectedController);
             return playerMap.mapModel[0].length == (injectedController.oponent.mapModel[0].length);
+	}
+        /**
+         * Test of calculation of the computer winner in PlayerMap class
+         */
+        @Test
+	public void testShipNumForComputerWinner() {
+	    Controller injectedController = new Controller();
+            Ship ship = new Ship(1, true);
+            int x = 5;
+            int y = 4;
+            injectedController.playerView.TryToPlaceShipOnMap(ship, x, y);
+            for(int i=0;i<5;i++){
+                injectedController.player.mapView.shipsNumOnMap--;
+            }
+            int expShipNum = 0;
+            int resultShipNum = injectedController.player.mapView.shipsNumOnMap;
+            System.out.println("resultShipNum: " + resultShipNum);
+            assertEquals(expShipNum, resultShipNum);		
 	}
 }

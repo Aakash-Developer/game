@@ -33,7 +33,9 @@ public class GridMapTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        /**
+         * Test of properly initiation of a grid map in GridMap class
+         */
 	@Test
 	public void testGridMap() {
             assertTrue("Is the grid map Correct?", isGridMapCorrect());
@@ -42,7 +44,9 @@ public class GridMapTest {
             Controller injectedController = new Controller();
             return injectedController.oponent.mapModel[0].length == (injectedController.player.mapModel[0].length);
 	}
-        
+        /**
+         * Test of TryToPlaceShipOnMap method in GridMap class
+         */
 	@Test
 	public void testTryToPlaceShipOnMap() {
             assertTrue("Is ship placed on Map?", isShipPlacedOnMap());
@@ -71,7 +75,9 @@ public class GridMapTest {
              */
             return injectedController.player.mapModel[y][x].space().equals("s");
 	}
-
+        /**
+         * Test of TryToPlaceShipOnModel method in GridMap class
+         */
 	@Test
 	public void testTryToPlaceShipOnModel() {
             assertTrue("Is ship placed on Model?", isShipPlacedOnModel());
@@ -84,6 +90,9 @@ public class GridMapTest {
             injectedController.playerView.TryToPlaceShipOnMap(ship, y, x);
             return injectedController.player.mapModel[y][x].space().equals("s");
 	}
+        /**
+         * Test of ApplyModelToView method in GridMap class
+         */
 	@Test
 	public void testApplyModelToView() {
             //System.out.println("TestResult14: " + isApplyModelToViewCorrect());
@@ -99,7 +108,9 @@ public class GridMapTest {
             
             return gridBoxInView.shipInstance == injectedController.player.mapModel[x][y].ShipInstance;
 	}
-	//@Ignore
+	/**
+         * Test of GetGridBoxByCoordinate method in GridMap class
+         */
 	@Test
 	public void testGetGridBoxByCoordinate() {
             assertTrue("Is getGridBoxByCoordinate method correct?", isGetGridBoxByCoordinateCorrect());

@@ -35,7 +35,9 @@ public class ControllerTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+        /**
+         * Test of Controller working Correctly in the Controller class.
+         */
 	@Test
 	public void testController() {
 		assertTrue("Is Controller working Correctly?", isControllerWorking());

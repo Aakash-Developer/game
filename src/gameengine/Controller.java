@@ -20,6 +20,7 @@ public class Controller
     public GridMap oponentView, playerView;
     public Turn turn;
     public ComputerPlayer ai;
+    public SaveLoadGame saveLoadGame;
     
     /**
     * Initializes one controller per game
@@ -36,6 +37,8 @@ public class Controller
         
         this.oponent.placeShipsRandomly();
         this.ai = new ComputerPlayer(this.player.mapModel);
+        
+        this.saveLoadGame = new SaveLoadGame();
         
         CreateView();
     }

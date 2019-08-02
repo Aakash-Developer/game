@@ -208,16 +208,19 @@ public class PlayerView{
             System.exit(0);
         });
         loadGameButton.setOnAction(actionEvent -> {
-            System.out.println("Load a game button is clicked!!");
+            //System.out.println("Load a game button is clicked!!");
+            this.controller.saveLoadGame.loadGame();
         });
         saveGameButton.setOnAction(actionEvent -> {
-            System.out.println("Save a game button is clicked!!");
+            //System.out.println("Save a game button is clicked!!");
+            this.controller.saveLoadGame.saveGame();
         });
         // Setting the message area in the main game waindow
         HBox messageArea = new HBox(3);
         //messageArea.getChildren().addAll(startButton,exitButton);
         messageArea.getChildren().addAll(startButton,exitButton,loadGameButton,saveGameButton);
         root.setBottom(messageArea);
+        //root.setTop(messageArea);
         // Setting the grid maps area in the main game waindow
         VBox mapGridsArea = new VBox(20, computerMapView, playerMapView);
         mapGridsArea.setAlignment(Pos.CENTER);

@@ -1,11 +1,12 @@
 package model;
 import api.Constant;
+import java.io.Serializable;
 
 /**
  * This class holds the model of the game in the MVC architecture being used
  * @author Team4
  */
-public class MapModel{
+public class MapModel implements Serializable {
 
         //properties
         public Constant.Space space       = Constant.Space.IsEmpty;

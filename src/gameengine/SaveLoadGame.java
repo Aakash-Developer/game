@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gameengine;
 
-import api.Constant;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,13 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import model.MapModel;
 import model.PlayerData;
 import model.StorageFormat;
+
 /**
  * It is responsible for saving and/or loading the data of the game
- * 
- * e game
  * @author zange
  */
 public class SaveLoadGame {
@@ -60,12 +51,12 @@ public class SaveLoadGame {
 
         try 
         {
-            FileOutputStream f = new FileOutputStream("game.dat",false);
-            ObjectOutputStream o = new ObjectOutputStream(f);
+            FileOutputStream fileName = new FileOutputStream("game.dat",false);
+            ObjectOutputStream binaryContent = new ObjectOutputStream(fileName);
 
-            o.writeObject(game);
-            o.close();
-            f.close();
+            binaryContent.writeObject(game);
+            binaryContent.close();
+            fileName.close();
             successful = true;
         } 
         catch (FileNotFoundException e) 
@@ -80,44 +71,6 @@ public class SaveLoadGame {
         return successful;
     }
     
-//    /**
-//     * It takes the map model , time, score , player name and save it in file
-//     * @param map
-//     * @param name
-//     * @param score
-//     * @param time
-//     * @return boolean True if successful. False otherwise
-//     */
-//    public boolean saveGame(MapModel[][] map, String name, int score , double time){
-//        
-//        boolean successful = false;
-//        
-//        PlayerData p1 = new PlayerData(map, name, score, time);
-//        
-//        try 
-//        {
-//            FileOutputStream f = new FileOutputStream("game.dat",false);
-//            ObjectOutputStream o = new ObjectOutputStream(f);
-//
-//            o.writeObject(p1);
-//            o.close();
-//            f.close();
-//            
-//            successful = true;
-//        } 
-//        catch (FileNotFoundException e) 
-//        {
-//            System.out.println("File not found");
-//        } 
-//        catch (IOException e) 
-//        {
-//            System.out.println("Error initializing stream");
-//        } 
-//
-//        return successful;
-//    }
-    
-    
     /**
      * It reads a file and convert it into the map model , time, score , 
      * player name 
@@ -128,13 +81,12 @@ public class SaveLoadGame {
         StorageFormat game = null;
         
         try{
-            FileInputStream fi = new FileInputStream(new File("game.dat"));
-            ObjectInputStream oi = new ObjectInputStream(fi);
+            FileInputStream fileName = new FileInputStream(new File("game.dat"));
+            ObjectInputStream binaryContent = new ObjectInputStream(fileName);
 
-            // Read objects
-            game =  (StorageFormat) oi.readObject();   
-            oi.close();
-            fi.close();
+            game =  (StorageFormat) binaryContent.readObject();   
+            binaryContent.close();
+            fileName.close();
             
         } 
         catch (FileNotFoundException e) 

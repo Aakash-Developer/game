@@ -14,9 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import static java.lang.System.out;
 import model.MapModel;
 import model.PlayerData;
-import static java.lang.System.out;
+import model.StorageFormat;
+import utils.PrettyPrint;
 /**
  * It is responsible for saving and/or loading the data of the game
  * 
@@ -25,12 +28,16 @@ import static java.lang.System.out;
  */
 public class SaveLoadGame {
 
+    
     MapModel[][] map;
     String name;
     int score;
     double time;
+    private final Controller controller;
+
+    public SaveLoadGame(Controller controller){
     
-    public SaveLoadGame(){
+        this.controller = controller;
         
         this.map  = new MapModel[Constant.GRID_SIZE][Constant.GRID_SIZE];  
         
@@ -39,22 +46,58 @@ public class SaveLoadGame {
                 map[x][y] = new MapModel(); 
             }
         }
-        
         this.name = "Player1";
         this.score = 99;
         this.time = 7.0;
         
-//        if(saveGame(map,name,score,time)){
-//            
-//            PlayerData p1 = loadGame();     
-//        }
     }
     
     public boolean saveGame(){
         
-        return saveGame(this.map, this.name, this.score , this.time);
+        //HumanPlayer     
+        PlayerData playerData = new PlayerData(this.controller.player.mapModel, 
+                                          "player", 
+                                          this.controller.finalScore, 
+                                          this.controller.totalTime);
+        
+        //ComputerPlayer
+        PlayerData oponentData = new PlayerData(this.controller.oponent.mapModel, 
+                                          "oponent", 
+                                          this.controller.finalScore, 
+                                          this.controller.totalTime);
+        
+        
+        StorageFormat game = new StorageFormat(playerData,oponentData);
+        return saveGame(game);
+        
+        //return saveGame(this.map, this.name, this.score , this.time);
     }
     
+    public boolean saveGame(StorageFormat game){
+        
+        boolean successful = false;
+
+        try 
+        {
+            FileOutputStream f = new FileOutputStream("game.dat",false);
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+            o.writeObject(game);
+            o.close();
+            f.close();
+            successful = true;
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.out.println("File not found: "+ e.toString());
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Error initializing stream: " + e.toString());
+        } 
+
+        return successful;
+    }
     
     /**
      * It takes the map model , time, score , player name and save it in file
@@ -95,22 +138,25 @@ public class SaveLoadGame {
         return successful;
     }
     
+    
     /**
      * It reads a file and convert it into the map model , time, score , 
      * player name 
      * @return boolean True if successful. False otherwise
      */
-    public PlayerData loadGame(){
+    //public PlayerData loadGame(){
+    public StorageFormat loadGame(){
         
-        PlayerData p1 = null;
+        //PlayerData p1 = null;
+        StorageFormat game = null;
         
         try{
             FileInputStream fi = new FileInputStream(new File("game.dat"));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             // Read objects
-            p1 = (PlayerData) oi.readObject();
-
+            //p1 = (PlayerData) oi.readObject();
+            game =  (StorageFormat) oi.readObject();   
 //            System.out.println(pr1.toString());
 //            System.out.println(pr2.toString());
 
@@ -131,8 +177,10 @@ public class SaveLoadGame {
             System.out.println("ClassNotFoundException");
         }
         
-        PrintResult(p1);
-        return p1;
+//        PrintResult(p1);
+//        return p1;
+        PrintResult(game);
+        return game;
         
     }
 
@@ -141,4 +189,27 @@ public class SaveLoadGame {
         System.out.println(p1.toString());
         
     }
+    
+     private void PrintResult(StorageFormat game) {
+        
+        System.out.println(game.toString());
+        
+    }
+    
+//    private class StorageFormat implements Serializable 
+//    {
+//        private PlayerData player;
+//        private PlayerData oponent;
+//                
+//        public StorageFormat(PlayerData player, PlayerData oponent){
+//            
+//            this.player = player;
+//            this.oponent = oponent;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Player:" + player.toString() + "\n" +  "Oponent: " + oponent.toString() + "\n";
+//        }
+//    }
 }

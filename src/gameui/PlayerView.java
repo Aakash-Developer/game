@@ -58,8 +58,8 @@ public class PlayerView{
     public boolean salvoCheckBox = false;
     private Stage primaryStageObj;
     public BorderPane root;
-    public double totalTime = 0;
-    public int finalScore = 0;
+//    public double totalTime = 0;
+//    public int finalScore = 0;
     
     /**
      * Event handler for the mouse clicking on the maps
@@ -297,19 +297,19 @@ public class PlayerView{
                 break;
             case 2:
                 if(salvoCheckBox){
-                    totalTime = totalTime/2;
-                    finalScore = (int) ((int) 10000/totalTime + 23);
+                    this.controller.totalTime = this.controller.totalTime/2;
+                    this.controller.finalScore = (int) ((int) 10000/this.controller.totalTime + 23);
                 }else{
-                    finalScore = (int) ((int) 10000/totalTime + 23);
+                    this.controller.finalScore = (int) ((int) 10000/this.controller.totalTime + 23);
                 }
                 root.setLeft(new Text("\n\n\n\n\n       Nice...You WIN the Battle!! \n\n"
-                        + "   Your total time is: "+totalTime+" seconds\n\n"
-                        + "       Your score is: "+finalScore));
+                        + "   Your total time is: "+this.controller.totalTime+" seconds\n\n"
+                        + "       Your score is: "+this.controller.finalScore));
                 Alert winAlert = new Alert(Alert.AlertType.INFORMATION);
                 winAlert.setTitle("YOU WIN");
                 winAlert.setHeaderText(null);
-                winAlert.setContentText("You win the game!!\nYour total time is: "+totalTime+" seconds.\n"
-                                        + "Your score is: "+finalScore);
+                winAlert.setContentText("You win the game!!\nYour total time is: "+this.controller.totalTime+" seconds.\n"
+                                        + "Your score is: "+this.controller.finalScore);
                 winAlert.showAndWait();
                 break;
             case 3:

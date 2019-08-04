@@ -21,6 +21,8 @@ public class Controller
     public Turn turn;
     public ComputerPlayer ai;
     public SaveLoadGame saveLoadGame;
+    public double totalTime = 0;
+    public int finalScore = 0; 
     
     /**
     * Initializes one controller per game
@@ -38,7 +40,7 @@ public class Controller
         this.oponent.placeShipsRandomly();
         this.ai = new ComputerPlayer(this.player.mapModel);
         
-        this.saveLoadGame = new SaveLoadGame();
+        this.saveLoadGame = new SaveLoadGame(this);
         
         CreateView();
     }

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import javafx.scene.Parent;
 
 
@@ -12,7 +13,7 @@ import javafx.scene.Parent;
  * @author Aakash Ahuja
  * @author Pulkit Wadhwa
  */
-public class Ship extends Parent {
+public class Ship extends Parent implements Serializable  {
     
     /**
      *  This parameter indicates the direction of a placed ship.

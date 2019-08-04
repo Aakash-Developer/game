@@ -76,7 +76,9 @@ public class OponentMap implements IPlayer{
                 //System.out.println("time diff: "+ timeSpan);
 
                 if(this.mapView.finishIni && (timeDiff < 1000)){
-                    controller.mainWindowView.totalTime = controller.mainWindowView.totalTime + timeDiff;
+//                    controller.mainWindowView.totalTime = controller.mainWindowView.totalTime + timeDiff;
+//                    controller.mainWindowView.root.setRight(new Text("\n\n\n  "+timeSpan+"\n\n  for this step! "));
+                    controller.totalTime = controller.totalTime + timeDiff;
                     controller.mainWindowView.root.setRight(new Text("\n\n\n  "+timeSpan+"\n\n  for this step! "));
                 }
                 /*if (selectedGridBox.isHitted){

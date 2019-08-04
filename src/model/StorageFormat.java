@@ -14,8 +14,8 @@ import java.io.Serializable;
  */
 public class StorageFormat implements Serializable {
     
-     private PlayerData player;
-        private PlayerData oponent;
+     public PlayerData player;
+        public PlayerData oponent;
                 
         public StorageFormat(PlayerData player, PlayerData oponent){
             
@@ -25,6 +25,6 @@ public class StorageFormat implements Serializable {
 
         @Override
         public String toString() {
-            return "Player:" + player.toString() + "\n" +  "Oponent: " + oponent.toString() + "\n";
+            return player.toString() + "\n" +  oponent.toString() + "\n";
         }
 }

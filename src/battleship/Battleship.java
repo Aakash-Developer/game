@@ -1,8 +1,5 @@
 package battleship;
 
-import api.IController;
-import api.IPlayer;
-import gameengine.OponentMap;
 import gameengine.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -34,7 +31,7 @@ public class Battleship extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         primaryStage.setTitle("Battleship Game: Player VS Computer");
-        Controller mainController = new Controller();
+        Controller mainController = new Controller(true);
         Scene scene = new Scene(mainController.mainWindowView.generateGameScene(primaryStage));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

@@ -57,6 +57,20 @@ public class OponentMap implements IPlayer{
         initialize();
     }
 
+        /**
+     * Initializes the OponenetMap of the game
+     * @param injectedController is the main controller in the MCV model
+     * of the application architecture
+     */
+    public OponentMap(Controller injectedController, MapModel[][] mapModel){
+        
+        this.controller = injectedController;
+        this.mapModel   = mapModel;
+        
+        initialize();
+        this.mapView.loadMapModel();
+    }
+    
     /**
      * This method initializes the event handler that the controller
      * will use to interchange data between the view and the controller

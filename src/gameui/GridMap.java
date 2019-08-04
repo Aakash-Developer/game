@@ -63,6 +63,77 @@ public class GridMap extends Parent {
         getChildren().add(gridMatrix);
     }
  
+    public void loadMapModel(){
+        
+        for(int x = 0 ; x< Constant.GRID_SIZE ; x++){
+            for(int y = 0 ; y< Constant.GRID_SIZE ; y++){
+                
+                GridBox rectangle = getGridBoxByCoordinate(x,y);
+                rectangle.shipInstance = this.mapModel[x][y].ShipInstance;
+                
+                if (isEnemyMap){
+                 
+                    if(this.mapModel[x][y].uncover == Uncover.Yes)
+                    {
+                        if(this.mapModel[x][y].space == Space.IsShip){
+
+                            rectangle.setFill(Color.RED);
+                            rectangle.setStroke(Color.BLUE);
+
+                        }
+                        else{
+                            
+                            rectangle.setFill(Color.BLACK);
+                            rectangle.setStroke(Color.BLUE);
+                        }
+                    }
+                    else{
+                        
+                        if(this.mapModel[x][y].space == Space.IsShip){
+
+                            // keep it blue
+
+                        }
+                        else{
+                            // keep it blue
+                        }
+                    }
+                }
+                else{
+                    
+                    if(this.mapModel[x][y].uncover == Uncover.Yes)
+                    {
+                        if(this.mapModel[x][y].space == Space.IsShip){
+
+                            rectangle.setFill(Color.RED);
+                            rectangle.setStroke(Color.BLUE);
+
+                        }
+                        else{
+                            
+                            rectangle.setFill(Color.BLACK);
+                            rectangle.setStroke(Color.BLUE);
+                        }
+                    }
+                    else{
+                        
+                        if(this.mapModel[x][y].space == Space.IsShip){
+
+                            rectangle.setFill(Color.WHITE);
+                            rectangle.setStroke(Color.BLUE);
+
+                        }
+                        else{
+                            // keep it blue
+                        }
+                    }
+                }
+            }   
+        }
+        
+        //applyModelToView();
+        //applyColorToView();
+    }
     /**
      * It tries to place a ship given some coordinates
      * @param ship is the instance of the ship class
@@ -149,6 +220,29 @@ public class GridMap extends Parent {
         return succesfull;
     }
     
+    
+    
+        /**
+     * Given a map model, it applies the model to the view
+     */
+    public void applyColorToView(){
+        
+        GridBox rectangle = getGridBoxByCoordinate(3,3);
+        rectangle.shipInstance = this.mapModel[3][3].ShipInstance;
+
+        if (!isEnemyMap) {
+            rectangle.setFill(Color.WHITE);
+            rectangle.setStroke(Color.BLUE);
+        }  
+        
+        rectangle = getGridBoxByCoordinate(4,4);
+        rectangle.shipInstance = this.mapModel[4][4].ShipInstance;
+
+        if (!isEnemyMap) {
+            rectangle.setFill(Color.WHITE);
+            rectangle.setStroke(Color.BLUE);
+        }
+    }
     
     /**
      * Given a map model, it applies the model to the view

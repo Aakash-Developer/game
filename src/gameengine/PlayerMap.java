@@ -45,6 +45,21 @@ public class PlayerMap implements IPlayer{
         initialize(this.mapModel);
     }
     
+    /**
+     * Initializes the PlayerMap class
+     * @param injectedController this is the controller in the MVC model
+     */
+    public PlayerMap(Controller injectedController, MapModel[][] mapModel, int iniShipsToPlace ){
+        
+        this.controller = injectedController;
+        this.mapModel   = mapModel;  
+
+//        iniShipsToPlace = 0;
+//        this.controller.turn = Turn.Player1;
+        this.iniShipsToPlace = iniShipsToPlace;
+        initialize(this.mapModel);
+        this.mapView.loadMapModel();
+    }
 
     /**
      * Creates the event handler of the player's map to interchange 
@@ -53,7 +68,7 @@ public class PlayerMap implements IPlayer{
      */
     private void initialize(MapModel[][] mapModel) {
         
-        mapView = new GridMap(mapModel, false, event -> {
+        this.mapView = new GridMap(mapModel, false, event -> {
 
             GridBox selectedGridBox = (GridBox) event.getSource();
             

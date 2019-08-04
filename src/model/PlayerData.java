@@ -13,25 +13,29 @@ import utils.PrettyPrint;
  */
 public class PlayerData implements Serializable  {
     
-    private MapModel[][] map;
-    private String name;
-    private int score;
-    private double time;
+    public MapModel[][] map;
+    public String name;
+    public int score;
+    public double time;
+    public int iniShipsToPlace;
     
     
-    public PlayerData(MapModel[][] map, String name, int score , double time){
+    public PlayerData(MapModel[][] map, String name, int score , double time, int iniShipsToPlace ){
         
         this.map = map;
         this.name = name;
         this.score = score;
         this.time = time;
+        this.iniShipsToPlace = iniShipsToPlace;
         
     }
     
     @Override
     public String toString() {
-            PrettyPrint.shipsInModel("ships",this.map);
-            PrettyPrint.uncoverInModel("empty",this.map);
-            return "Name:" + name + " Score: " + score + " Time: " + time + "\n";
+        
+            System.out.print("Name:" + name + " Score: " + score + " Time: " + time + " iniShipsToPlace: " + iniShipsToPlace + "\n");
+            PrettyPrint.shipsInModel("ships position",this.map);
+            PrettyPrint.uncoverInModel("hitted cells",this.map);
+            return "\n";
     }
 }

@@ -57,13 +57,13 @@ public class MapModel implements Serializable {
         
         public String space(){
             
-            return space.equals(Constant.Space.IsEmpty)?" ":"s";
+            return space.equals(Constant.Space.IsEmpty)?" ":"S";
             
         }
         
         public String uncover(){
             
-            return uncover.equals(Constant.Uncover.No)?" ":"u";
+            return uncover.equals(Constant.Uncover.No)?" ":"Y";
             
         }
     }

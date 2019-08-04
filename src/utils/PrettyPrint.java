@@ -30,6 +30,7 @@ public class PrettyPrint {
         }
         System.out.println();
     }
+ 
     
     /**
      * It displays the position of the maps that have been uncover

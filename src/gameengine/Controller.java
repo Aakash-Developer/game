@@ -4,6 +4,9 @@ import api.Constant.GameType;
 import api.Constant.Turn;
 import gameui.GridMap;
 import gameui.PlayerView;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import model.StorageFormat;
 
 /**
 * The Controller class in the controller in the MVC architecture
@@ -15,8 +18,8 @@ public class Controller
     GameType gameType;
     public PlayerView mainWindowView;
     public boolean computerTurn = false;
-    public final OponentMap oponent;
-    public final PlayerMap player;
+    public  OponentMap oponent;
+    public  PlayerMap player;
     public GridMap oponentView, playerView;
     public Turn turn;
     public ComputerPlayer ai;
@@ -24,27 +27,62 @@ public class Controller
     public double totalTime = 0;
     public int finalScore = 0; 
     
+    
     /**
     * Initializes one controller per game
     */
-    public Controller(){
+    public Controller(boolean newGame){
    
-        this.turn = Turn.None;
-        
-        this.player = new PlayerMap(this);
-        this.playerView = player.mapView;     
-        
-        this.oponent = new OponentMap(this);        
-        this.oponentView = oponent.mapView;
-        
-        this.oponent.placeShipsRandomly();
-        this.ai = new ComputerPlayer(this.player.mapModel);
-        
         this.saveLoadGame = new SaveLoadGame(this);
         
-        CreateView();
+        if(newGame){
+            this.turn = Turn.None;
+
+            this.player = new PlayerMap(this);
+            this.playerView = player.mapView;     
+
+            this.oponent = new OponentMap(this);        
+            this.oponentView = oponent.mapView;
+
+            this.oponent.placeShipsRandomly();
+            this.ai = new ComputerPlayer(this.player.mapModel);
+
+            //this.saveLoadGame = new SaveLoadGame(this);
+
+            CreateView();    
+        }
+        else{
+            
+            //this.saveLoadGame = new SaveLoadGame(this);
+            loadGame();
+        }
+        
     }
-     
+    
+    public void loadGame(){
+        
+        StorageFormat game = this.saveLoadGame.loadGame();
+        
+        if(game != null){
+            
+            this.player = new PlayerMap(this, game.player.map, game.player.iniShipsToPlace);
+            this.playerView = player.mapView;     
+
+            this.oponent = new OponentMap(this, game.oponent.map);        
+            this.oponentView = oponent.mapView;
+            
+            this.ai = new ComputerPlayer(this.player.mapModel);
+            
+            CreateView();
+
+        }
+        else {
+            System.out.println("problem loading the game");
+        }
+        
+        
+    }
+
     /**
      * initializes the JavaFX framework with the
      * view of the game

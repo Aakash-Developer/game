@@ -208,8 +208,16 @@ public class PlayerView{
             System.exit(0);
         });
         loadGameButton.setOnAction(actionEvent -> {
-            //System.out.println("Load a game button is clicked!!");
-            this.controller.saveLoadGame.loadGame();
+            
+            //this.controller.saveLoadGame.loadGame();
+            //this.controller.loadGame();
+            
+            try {
+                loadGame();
+            } catch (Exception ex) {
+                Logger.getLogger("BattleshipError").log(Level.SEVERE, null, ex);
+            }
+
         });
         saveGameButton.setOnAction(actionEvent -> {
             //System.out.println("Save a game button is clicked!!");
@@ -277,7 +285,18 @@ public class PlayerView{
         Stage newPrimaryStage = new Stage();
         newPrimaryStage.setTitle("Battleship Game: Player VS Computer");
         primaryStageObj.close();
-        Controller newMainController = new Controller();
+        Controller newMainController = new Controller(true);
+        Scene scene = new Scene(newMainController.mainWindowView.generateGameScene(newPrimaryStage));
+        newPrimaryStage.setScene(scene);
+        newPrimaryStage.setResizable(false);
+        newPrimaryStage.show();
+    }
+    
+    private void loadGame() throws Exception {
+        Stage newPrimaryStage = new Stage();
+        newPrimaryStage.setTitle("Battleship Game: Player VS Computer");
+        primaryStageObj.close();
+        Controller newMainController = new Controller(false);
         Scene scene = new Scene(newMainController.mainWindowView.generateGameScene(newPrimaryStage));
         newPrimaryStage.setScene(scene);
         newPrimaryStage.setResizable(false);

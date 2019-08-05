@@ -1,4 +1,4 @@
-//package Test;
+package gameengine;
 
 import gameengine.Controller;
 import gameengine.OponentMap;

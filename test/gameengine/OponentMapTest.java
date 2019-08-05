@@ -1,4 +1,4 @@
-//package Test;
+package gameengine;
 
 import static org.junit.Assert.*;
 
@@ -104,8 +104,8 @@ public class OponentMapTest {
 	}
 
 	private boolean isNextComputerMoveCorrect() {
-		GridMap pv = new GridMap(null, false, null);
-		ComputerPlayer ai = new ComputerPlayer(null);
+		GridMap pv = new GridMap(null,null, false, null);
+		ComputerPlayer ai = new ComputerPlayer(null,null);
 		boolean computerTurn = false;
 		while(!computerTurn){
 			Tuple nextMove;

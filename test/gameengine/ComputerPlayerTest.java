@@ -1,4 +1,4 @@
-//package Test;
+package gameengine;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +43,7 @@ public class ComputerPlayerTest {
 
 	private boolean isComputerPlayerCorrect() {
 		MapModel[][] mp = new MapModel[1][1]; 
-		ComputerPlayer cp = new ComputerPlayer(mp);
+		ComputerPlayer cp = new ComputerPlayer(mp,null);
 		MapModel mapModel = new MapModel();
 		mapModel.space = Constant.Space.IsShip ;
 		if(mapModel.IsSpaceEmpty()) { 

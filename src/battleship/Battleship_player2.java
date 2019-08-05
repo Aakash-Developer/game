@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * @version build2
  */
 
-public class Battleship extends Application {
+public class Battleship_player2 extends Application {
    
     public static int gridCellNum = 10;
 
@@ -35,13 +35,12 @@ public class Battleship extends Application {
     public void start(Stage primaryStage) throws Exception {        
         primaryStage.setTitle("Battleship Game: Player VS Computer");
         Controller mainController = new Controller();
-        mainController.udp_port = 1111;
-        mainController.udp_receieve_port = 1113;
+        mainController.udp_port = 1112;
+        mainController.udp_receieve_port = 1114;
         Scene scene = new Scene(mainController.mainWindowView.generateGameScene(primaryStage));
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        Network_UDPServer testNetworkPlaying = new Network_UDPServer(mainController);
     }
     
     /**

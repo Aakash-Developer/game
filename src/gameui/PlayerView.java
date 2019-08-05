@@ -31,6 +31,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.RectangleShipObj;
 import model.Ship;
+import utils.PrettyPrint;
 
 
 /**
@@ -317,7 +318,7 @@ public class PlayerView{
                 root.setLeft(new Text("\n\n\n\n\n      Sorry...You LOST the Battle!!"));
                 break;
             case 5:
-                root.setRight(new Text("\n\n\n  Advanced game!  \n\n  5 hits at a time!  "));
+                root.setLeft(new Text("\n\n\n\n\n        Waiting for oponent's move... \n\n"));
                 break;
             case 6:
                 root.setRight(new Text("\n\n\n                                \n"));
@@ -389,9 +390,10 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
-
+                        controller.udpSendMsg(controller.selfShipDeployInfo);
+                        PrettyPrint.shipsInModel("player1", controller.player.mapModel);
                         this.controller.turn = Constant.Turn.Player1;
-
+                        
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }
@@ -421,7 +423,10 @@ public class PlayerView{
                                 + "             Player's move             "));
                         */
                         controller.mainWindowView.displayMessage(3);
+                        controller.udpSendMsg(controller.selfShipDeployInfo);
+                        PrettyPrint.shipsInModel("player1", controller.player.mapModel);
                         this.controller.turn = Constant.Turn.Player1;
+                        
 //                        controller.player.computerPlaceShipsAutomatically();
                     }
                 }

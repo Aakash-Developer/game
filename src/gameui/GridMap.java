@@ -3,6 +3,7 @@ package gameui;
 import api.Constant;
 import api.Constant.Space;
 import api.Constant.Uncover;
+import gameengine.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -34,19 +35,19 @@ public class GridMap extends Parent {
     public int moveCounter          = 0;
     public boolean finishIni        = false;
     public MapModel[][] mapModel;
-   
+    public Controller controller;
     /**
      * It creates the maps of the main and enemy players.
      * @param mapModel mapModel of the current player
      * @param isEnemyMap indicate which map is to be construct
      * @param handler is the handler between controller and view to pass data
      */
-    public GridMap(MapModel[][] mapModel, boolean isEnemyMap, 
+    public GridMap(Controller injectedController,MapModel[][] mapModel, boolean isEnemyMap, 
                    EventHandler<? super MouseEvent> handler) 
     {
         this.isEnemyMap = isEnemyMap;
         this.mapModel   = mapModel;
-              
+        this.controller = injectedController;       
         for (int pos_y = 0; pos_y < Constant.GRID_SIZE; pos_y++) { // create view matrix
             
             HBox row = new HBox();
@@ -106,6 +107,8 @@ public class GridMap extends Parent {
                     }
                 }
             }
+            String shipDeployInfo = pos_x+" "+pos_y+" "+ship.isVertical;
+            controller.selfShipDeployInfo = controller.selfShipDeployInfo+"-"+shipDeployInfo;
             return true;
         }
 

@@ -5,6 +5,8 @@ import api.Constant.Turn;
 import api.IPlayer;
 import gameui.GridMap;
 import gameui.GridMap.GridBox;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -64,8 +66,8 @@ public class OponentMap implements IPlayer{
      */
     private void initialize() {
         
-        mapView = new GridMap(this.mapModel, true, (MouseEvent event) -> {
-        
+        mapView = new GridMap(this.controller,this.mapModel, true, (MouseEvent event) -> {
+            
             if(this.controller.turn != Turn.None){
                 
                 GridBox selectedGridBox = (GridBox) event.getSource();
@@ -82,6 +84,10 @@ public class OponentMap implements IPlayer{
                 /*if (selectedGridBox.isHitted){
                     return;
                 }*/
+                String hitedPositionInfo = selectedGridBox.pos_x + " " + selectedGridBox.pos_y;
+                controller.udpSendMsg(hitedPositionInfo);
+                System.out.println(controller.udp_port+": Player1 Move DATA WAS SENT");
+                
                 controller.mainWindowView.salvoCheckBox = controller.mainWindowView.checkBox1.isSelected();
 
                 if(controller.mainWindowView.salvoCheckBox){ // ----- salvo variation
@@ -160,11 +166,14 @@ public class OponentMap implements IPlayer{
     public void computerMove() {
         
         while (this.controller.computerTurn) {
- 
-            Tuple nextmove = this.controller.ai.getNextComputerMove();
+            while(this.controller.oponentMoveQueue.isEmpty()){
+                //System.out.println("waitting for oponent's move...");
+                
+            }
+            //Tuple nextmove = this.controller.ai.getNextComputerMove();
+            Tuple nextmove = this.controller.ai.getNextPlayer2Move();
             int x = nextmove.t1;
             int y = nextmove.t2;
-            
             GridBox selectedGridBox = controller.playerView.getGridBoxByCoordinate(x, y);
             
             if (selectedGridBox.isHitted){

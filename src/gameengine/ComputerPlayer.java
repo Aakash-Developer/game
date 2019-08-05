@@ -7,6 +7,8 @@ import api.Constant.Uncover;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.MapModel;
 import utils.PrettyPrint;
 import utils.Tuple;
@@ -36,16 +38,16 @@ public class ComputerPlayer {
     int nextX;
     int nextY;
     private final MapModel[][] mapModel;
-    
+    Controller controller;
     
     /**
      * This is the constructor of a Computer/enemy player
      * @param mapModel Represent the information/model of the enemy map
      */
-    public ComputerPlayer(MapModel[][] mapModel){
+    public ComputerPlayer(MapModel[][] mapModel, Controller injectedController){
     
         this.mapModel = mapModel;
-        
+        this.controller = injectedController;
         processState     = ProcessState.Initial;
         nextPosition     = null;
         prevPosition     = null;
@@ -61,7 +63,23 @@ public class ComputerPlayer {
         nextY = seed;
         list = GetTestSample();
     }
-
+    
+    
+    public Tuple getNextPlayer2Move(){
+        while(controller.oponentMoveQueue.size()==0){
+        }
+        try {
+            String[] nextP2Move= controller.oponentMoveQueue.take().trim().split(" ");
+            int xx = Integer.parseInt(nextP2Move[0].trim());
+            int yy = Integer.parseInt(nextP2Move[1].trim());
+            nextPosition = new Tuple(xx, yy);           
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ComputerPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return nextPosition;
+    }
+    
     /**
      * This method calculates based on a predefine algorithm 
      * the next movement of the AI

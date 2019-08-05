@@ -53,25 +53,33 @@ public class PlayerMap implements IPlayer{
      */
     private void initialize(MapModel[][] mapModel) {
         
-        mapView = new GridMap(mapModel, false, event -> {
+        mapView = new GridMap(this.controller,mapModel, false, event -> {
 
             GridBox selectedGridBox = (GridBox) event.getSource();
-            
-            if (this.mapView.TryToPlaceShipOnMap(new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
-                    event.getButton() == MouseButton.PRIMARY), 
+            Ship iniShip = new Ship(ShipsSizeOrderedList[iniShipsToPlace-1], 
+                    event.getButton() == MouseButton.PRIMARY);
+            this.mapView.TryToPlaceShipOnModel(iniShip, selectedGridBox.pos_x, selectedGridBox.pos_y);
+            if (this.mapView.TryToPlaceShipOnMap(iniShip, 
                     selectedGridBox.pos_x, selectedGridBox.pos_y)) {
 
                 //PrintDebug.printModel("human placing ships in the model", mapModel);
 
                 if (--iniShipsToPlace == 0) {
-                    /*root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
-                            + "             Player's move             "));
-                    */
+                    //root.setLeft(new Text("\n\n\n\n\n             The battle is starting!! \n\n"
+                    //        + "             Player's move             "));
+                    //
                     controller.mainWindowView.displayMessage(3);
-                    PrettyPrint.shipsInModel("human", mapModel);
+                    controller.udpSendMsg(controller.selfShipDeployInfo);
+                    PrettyPrint.shipsInModel("player1", mapModel);
                     this.controller.turn = Turn.Player1;
+                    
+                    //controller.udpSendMsg(controller.selfShipDeployInfo);
                 }
             }
+            //if (controller.player.iniShipsToPlace == 0) {
+            //        controller.udpSendMsg(controller.selfShipDeployInfo);
+            //        controller.player.iniShipsToPlace--;
+            //}
         });
     }
      
